@@ -93,8 +93,7 @@
 HWP/HWPX, PDF, 이미지, Excel 문서를 업로드하면 텍스트, 표, 이미지, 메타데이터를 추출하고, 검색 가능한 지식 데이터로 변환합니다.
 
 <p align="center">
-<img width="595" height="640" alt="Image" src="https://github.com/user-attachments/assets/9695ba7f-1248-48f0-9b0f-95acf56a17c6" /><br />
-
+<img width="10985" height="11812" alt="Image" src="https://github.com/user-attachments/assets/842e3b66-fb85-4624-aab3-8bb7725b2ebb" />
 ## 프로젝트 소개
 
 **LLMong**은 다양한 형식의 업무 문서를 AI가 활용할 수 있는 구조화 데이터로 변환하는 문서 파싱 서비스입니다.
