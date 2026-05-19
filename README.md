@@ -148,10 +148,6 @@ LLMong은 문서 구조를 추출하는 데서 끝나지 않고, 표와 이미�
 
 **RAG 기반 질의응답**을 통해 사용자는 업로드한 문서의 내용을 자연어로 검색하고, 관련 문맥을 반영한 답변을 받을 수 있습니다.
 
-<p align="center">
-  <img width="680" alt="RAG 인프라 필요성" src="https://github.com/user-attachments/assets/f5efe3c5-1596-4f7f-9057-5dff7f204814" />
-</p>
-
 
 <img width="1619" height="971" alt="Image" src="https://github.com/user-attachments/assets/5f888781-5544-46eb-a38b-3ad043ff192a" />
 
