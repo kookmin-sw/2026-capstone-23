@@ -93,8 +93,7 @@
 HWP/HWPX, PDF, 이미지, Excel 문서를 업로드하면 텍스트, 표, 이미지, 메타데이터를 추출하고, 검색 가능한 지식 데이터로 변환합니다.
 
 <p align="center">
-<img width="1770" height="1880" alt="Image" src="https://github.com/user-attachments/assets/f5385921-088a-4bf8-8188-c59c334f13ae" /></p>
-
+<img width="595" height="640" alt="Image" src="https://github.com/user-attachments/assets/9695ba7f-1248-48f0-9b0f-95acf56a17c6" />
 <br />
 
 ## 프로젝트 소개
