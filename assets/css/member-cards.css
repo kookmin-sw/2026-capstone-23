@@ -16,7 +16,10 @@ html {
   --content-width: calc(var(--layout-width) - var(--sidebar-menu-width));
   --border-soft: #dfe7f2;
   --shadow-panel: 0 22px 70px rgba(15, 35, 70, 0.13);
-  --shadow-media: 0 18px 42px rgba(16, 42, 86, 0.15);
+  --shadow-media:
+    0 1px 2px rgba(15, 23, 42, 0.06),
+    0 14px 30px -22px rgba(15, 35, 70, 0.32),
+    0 36px 76px -48px rgba(31, 63, 119, 0.34);
   --shadow-card: 0 14px 34px rgba(15, 35, 70, 0.1);
   --shadow-card-hover: 0 22px 48px rgba(15, 35, 70, 0.16);
 }
@@ -207,7 +210,7 @@ section {
   height: auto;
   display: block;
   margin: 20px auto 0;
-  border: 1px solid rgba(219, 226, 238, 0.9);
+  border: 1px solid rgba(224, 231, 241, 0.92);
   border-radius: 5px;
   background: #ffffff;
   box-shadow: var(--shadow-media);
@@ -219,8 +222,9 @@ section {
   height: auto;
   display: block;
   margin: 18px auto;
-  border: 1px solid rgba(219, 226, 238, 0.9);
+  border: 1px solid rgba(224, 231, 241, 0.92);
   border-radius: 5px;
+  background: #ffffff;
   box-shadow: var(--shadow-media);
 }
 
@@ -326,8 +330,9 @@ h2::after {
   height: auto;
   display: block;
   margin: 12px 0 16px;
-  border: 1px solid rgba(219, 226, 238, 0.9);
+  border: 1px solid rgba(224, 231, 241, 0.92);
   border-radius: 5px;
+  background: #ffffff;
   box-shadow: var(--shadow-media);
 }
 
@@ -363,8 +368,9 @@ h2::after {
   width: 100%;
   height: auto;
   display: block;
-  border: 1px solid rgba(219, 226, 238, 0.9);
+  border: 1px solid rgba(224, 231, 241, 0.92);
   border-radius: 5px;
+  background: #ffffff;
   box-shadow: var(--shadow-media);
 }
 
@@ -377,7 +383,7 @@ h2::after {
   max-width: 860px;
   aspect-ratio: 16 / 9;
   margin: 0;
-  border: 1px solid rgba(219, 226, 238, 0.9);
+  border: 1px solid rgba(224, 231, 241, 0.92);
   border-radius: 8px;
   background: #0f172a;
   box-shadow: var(--shadow-media);
