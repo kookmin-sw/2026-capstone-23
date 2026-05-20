@@ -428,12 +428,13 @@ h2::after {
 
 .paper-image {
   width: 100%;
-  height: auto;
+  height: clamp(220px, 30vw, 265px);
   display: block;
   border: 1px solid rgba(224, 231, 241, 0.92);
   border-radius: 5px;
   background: #ffffff;
   box-shadow: var(--shadow-media);
+  object-fit: contain;
 }
 
 .demo-video {
@@ -1020,6 +1021,10 @@ hr {
   .paper-grid {
     grid-template-columns: 1fr;
     gap: 12px;
+  }
+
+  .paper-image {
+    height: clamp(190px, 60vw, 260px);
   }
 
   .feature-copy p {
