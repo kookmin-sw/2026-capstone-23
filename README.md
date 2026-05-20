@@ -251,11 +251,15 @@ POST   /rag/sessions/{sessionId}/messages
 
 ## 시연 영상
 
-공개 가능한 범위의 서비스 프리뷰는 아래 GIF와 화면 자료로 확인할 수 있습니다.
+프로젝트 시연 영상은 아래 링크에서 확인할 수 있습니다.
 
 <p align="center">
-  <img width="780" alt="LLMong Service Preview" src="./assets/images/readme-banner.gif" />
+  <a href="https://www.youtube.com/watch?v=txJgsCJVvJk">
+    <img width="780" alt="LLMong 시연 영상" src="https://img.youtube.com/vi/txJgsCJVvJk/hqdefault.jpg" />
+  </a>
 </p>
+
+[시연 영상 바로가기](https://www.youtube.com/watch?v=txJgsCJVvJk)
 
 ### 주요 화면
 
