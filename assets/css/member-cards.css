@@ -670,12 +670,16 @@ hr {
     --content-width: 100%;
   }
 
+  body {
+    background: #f6f9fd;
+  }
+
   html {
-    scroll-padding-top: 78px;
+    scroll-padding-top: 76px;
   }
 
   section {
-    scroll-margin-top: 88px;
+    scroll-margin-top: 86px;
   }
 
   .site-sidebar {
@@ -683,12 +687,15 @@ hr {
     top: 0;
     width: 100%;
     min-height: auto;
-    padding: 10px 18px;
+    padding: 8px 14px;
     flex-direction: row;
     align-items: center;
-    gap: 12px;
+    gap: 10px;
+    background: rgba(239, 245, 252, 0.96);
+    backdrop-filter: blur(12px);
     border-right: 0;
     border-bottom: 1px solid #dce5f1;
+    box-shadow: 0 10px 24px rgba(15, 35, 70, 0.08);
   }
 
   .sidebar-brand {
@@ -697,7 +704,7 @@ hr {
   }
 
   .sidebar-brand img {
-    width: 96px;
+    width: 72px;
   }
 
   .side-nav {
@@ -705,22 +712,35 @@ hr {
     flex: 1;
     flex-direction: row;
     padding-top: 0;
+    padding-bottom: 2px;
     border-top: 0;
     gap: 8px;
     overflow-x: auto;
     overscroll-behavior-x: contain;
     -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+
+  .side-nav::-webkit-scrollbar {
+    display: none;
   }
 
   .side-nav a {
     flex: 0 0 auto;
-    padding: 6px 9px;
+    padding: 7px 10px;
     border: 1px solid #dce5f1;
-    border-radius: 6px;
+    border-radius: 999px;
     background: #ffffff;
-    font-size: 13px;
+    font-size: 12px;
     line-height: 1.2;
     white-space: nowrap;
+    transform: none;
+    box-shadow: 0 4px 10px rgba(15, 35, 70, 0.05);
+  }
+
+  .side-nav a:hover,
+  .side-nav a.is-active {
+    transform: none;
   }
 
   .side-nav-external {
@@ -732,16 +752,25 @@ hr {
   }
 
   .page-shell {
-    margin: 0 auto;
-    width: min(100% - 36px, 840px);
+    margin: 0;
+    width: 100%;
     min-height: auto;
-    padding: 0 28px 44px;
+    padding: 0 18px 44px;
+    border: 0;
+    box-shadow: none;
   }
 
   .content-topbar {
-    height: 58px;
-    margin: 0 -28px 34px;
-    padding: 0 28px;
+    display: none;
+  }
+
+  .page-hero {
+    margin-top: 22px;
+  }
+
+  .hero-banner-frame {
+    max-width: 100%;
+    margin: 16px 0 0;
   }
 
   .hero-banner,
@@ -760,69 +789,107 @@ hr {
 
 @media (max-width: 720px) {
   html {
-    scroll-padding-top: 70px;
+    scroll-padding-top: 72px;
   }
 
   section {
     scroll-margin-top: 82px;
   }
 
+  .site-sidebar {
+    padding: 8px 12px;
+  }
+
+  .sidebar-brand img {
+    width: 66px;
+  }
+
   .side-nav {
     gap: 6px;
   }
 
+  .side-nav .side-nav-brand,
+  .side-nav-external {
+    display: none;
+  }
+
   .side-nav a {
-    padding: 6px 8px;
+    padding: 7px 10px;
     font-size: 12px;
   }
 
   .page-shell {
-    width: min(100% - 24px, 960px);
-    padding: 0 18px 36px;
+    width: 100%;
+    padding: 0 16px 36px;
   }
 
-  .content-topbar {
-    margin: 0 -18px 26px;
-    padding: 0 18px;
+  .page-hero {
+    margin-bottom: 24px;
   }
 
   .page-hero h1 {
-    font-size: 30px;
+    font-size: 32px;
   }
 
-  .page-hero p {
-    font-size: 14px;
+  .hero-banner {
+    border-radius: 8px;
+  }
+
+  .hero-banner-icon {
+    left: 16px;
+    width: clamp(54px, 15%, 68px);
   }
 
   section {
-    margin: 24px 0;
+    margin: 28px 0;
   }
 
   h2 {
-    margin-bottom: 14px;
-    font-size: 21px;
+    margin-bottom: 16px;
+    font-size: 24px;
+  }
+
+  .parser-note {
+    padding: 13px 14px;
+    border-radius: 8px;
   }
 
   .feature-copy h3 {
-    margin-top: 20px;
-    padding: 6px 9px 6px 11px;
+    width: 100%;
+    margin-top: 22px;
+    padding: 8px 10px 8px 12px;
     font-size: 16px;
   }
 
   .feature-media-row {
     grid-template-columns: 1fr;
-    gap: 10px;
-    margin-bottom: 16px;
+    gap: 12px;
+    margin-bottom: 18px;
   }
 
   .feature-media-row .feature-image {
     max-width: 100%;
+    width: 100%;
     margin-top: 0;
     justify-self: start;
   }
 
+  .section-image,
+  .service-image,
+  .feature-image,
+  .demo-video,
+  .stack-card,
+  .member-card {
+    border-radius: 8px;
+  }
+
+  .service-image-list {
+    gap: 12px;
+  }
+
   .feature-copy p {
-    font-size: 14px;
+    font-size: 15px;
+    line-height: 1.68;
   }
 
   .text-line {
@@ -834,7 +901,7 @@ hr {
   }
 
   hr {
-    margin: 24px 0;
+    margin: 26px 0;
   }
 
   .member-grid {
@@ -845,7 +912,7 @@ hr {
 
   .member-card {
     min-height: auto;
-    padding: 16px 14px;
+    padding: 16px;
   }
 
   .member-photo {
@@ -865,7 +932,7 @@ hr {
 
   .stack-card {
     min-height: auto;
-    padding: 16px 14px;
+    padding: 16px;
   }
 
   .stack-badges img {
@@ -875,32 +942,33 @@ hr {
 
 @media (max-width: 520px) {
   html {
-    scroll-padding-top: 68px;
+    scroll-padding-top: 66px;
   }
 
   .side-nav {
     gap: 6px;
   }
 
-  .page-shell {
-    width: min(100% - 28px, 960px);
-    padding-left: 14px;
-    padding-right: 14px;
+  .site-sidebar {
+    gap: 8px;
   }
 
-  .content-topbar {
-    margin-left: -14px;
-    margin-right: -14px;
+  .sidebar-brand img {
+    width: 58px;
+  }
+
+  .page-shell {
+    width: 100%;
     padding-left: 14px;
     padding-right: 14px;
   }
 
   .page-hero h1 {
-    font-size: 30px;
+    font-size: 31px;
   }
 
   h2 {
-    font-size: 22px;
+    font-size: 23px;
   }
 
   .main-content .member-grid,
@@ -911,26 +979,43 @@ hr {
 
   .main-content .member-card,
   .member-card {
+    display: grid;
+    grid-template-columns: 72px minmax(0, 1fr);
+    column-gap: 13px;
+    align-items: center;
     min-height: auto;
-    padding: 16px 14px;
+    padding: 14px;
     border-radius: 8px;
+    text-align: left;
   }
 
   .main-content .member-photo,
   .member-photo {
-    width: min(112px, 100%) !important;
-    margin-bottom: 12px;
-    border-radius: 16px;
+    grid-row: 1 / span 5;
+    width: 72px !important;
+    margin: 0;
+    border-radius: 14px;
   }
 
   .main-content .member-card h3,
   .member-card h3 {
-    font-size: 18px;
+    margin-bottom: 6px;
+    font-size: 17px;
   }
 
   .main-content .member-card p,
   .member-card p {
+    margin: 2px 0;
     font-size: 13px;
+  }
+
+  .main-content .member-link,
+  .member-link {
+    margin-top: 6px;
+  }
+
+  .stack-badges img {
+    height: 23px;
   }
 
   .page-footer {
@@ -944,14 +1029,30 @@ hr {
   }
 
   .page-shell {
-    width: min(100% - 18px, 960px);
+    width: 100%;
+    padding-left: 12px;
+    padding-right: 12px;
   }
 
   .side-nav a {
     font-size: 11px;
   }
 
+  .sidebar-brand img {
+    width: 52px;
+  }
+
   .member-card {
-    padding: 16px 12px;
+    grid-template-columns: 64px minmax(0, 1fr);
+    padding: 13px 12px;
+  }
+
+  .member-photo {
+    width: 64px !important;
+  }
+
+  .hero-banner-icon {
+    left: 12px;
+    width: 50px;
   }
 }
