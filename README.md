@@ -69,9 +69,6 @@ RAG 검색 및 질의응답
 <br />
 
 ## 팀원 소개
-<p align="center">
-  <img width="780" alt="LLMong Service Preview" src="./assets/images/readme-banner.gif" />
-</p>
 <table>
   <tr>
     <td align="center" width="180px">
