@@ -269,7 +269,8 @@ POST   /rag/sessions/{sessionId}/messages
 ## 시스템 구조도
 
 <p align="center">
-  <img width="820" alt="시스템 구조도" src="./assets/images/architecture.svg" />
+  <img width="820" alt="시스템 구조도" src="./assets/images/architecture.svg#gh-light-mode-only" />
+  <img width="820" alt="시스템 구조도" src="./assets/images/architecture-dark.svg#gh-dark-mode-only" />
 </p>
 
 ### Architecture
@@ -369,6 +370,7 @@ processing
     css/
       member-cards.css
     images/
+      architecture-dark.svg
       architecture.svg
       banner.svg
       convert.svg
