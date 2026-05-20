@@ -991,45 +991,80 @@ hr {
     margin: 26px 0;
   }
 
+  .main-content .member-grid,
   .member-grid {
     width: calc(100vw - 32px);
     max-width: calc(100vw - 32px);
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 8px;
+    display: flex !important;
+    grid-template-columns: none;
+    gap: 12px;
     margin: 16px 0 24px;
+    padding: 2px 2px 12px;
+    overflow-x: auto;
+    overflow-y: hidden;
+    overscroll-behavior-x: contain;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(91, 93, 232, 0.55) transparent;
   }
 
+  .main-content .member-grid::-webkit-scrollbar,
+  .member-grid::-webkit-scrollbar {
+    height: 6px;
+  }
+
+  .main-content .member-grid::-webkit-scrollbar-track,
+  .member-grid::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  .main-content .member-grid::-webkit-scrollbar-thumb,
+  .member-grid::-webkit-scrollbar-thumb {
+    border-radius: 999px;
+    background: rgba(91, 93, 232, 0.48);
+  }
+
+  .main-content .member-card,
   .member-card {
-    min-width: 0;
+    flex: 0 0 clamp(156px, 42vw, 188px);
+    width: clamp(156px, 42vw, 188px);
+    min-width: clamp(156px, 42vw, 188px);
     overflow: hidden;
     min-height: auto;
-    padding: 10px 6px;
+    padding: 14px 10px 12px;
+    scroll-snap-align: start;
   }
 
+  .main-content .member-photo,
   .member-photo {
-    width: min(64px, 100%) !important;
-    margin-bottom: 8px;
+    width: min(76px, 100%) !important;
+    margin-bottom: 9px;
     border-radius: 12px;
   }
 
+  .main-content .member-card h3,
   .member-card h3 {
-    font-size: 14px;
+    font-size: 15px;
     line-height: 1.18;
   }
 
+  .main-content .member-card h3 span,
   .member-card h3 span {
-    font-size: 10px;
+    font-size: 11px;
     line-height: 1.2;
   }
 
+  .main-content .member-card p,
   .member-card p {
     display: none;
   }
 
+  .main-content .member-link,
   .member-link {
     max-width: 100%;
     display: block;
-    margin-top: 6px;
+    margin-top: 7px;
     font-size: 10px;
     overflow-wrap: anywhere;
     word-break: break-word;
@@ -1088,28 +1123,32 @@ hr {
 
   .main-content .member-grid,
   .member-grid {
-    width: 100%;
-    max-width: 350px;
-    grid-template-columns: repeat(3, 96px);
-    justify-content: space-between;
-    gap: 8px 0;
-    margin-left: auto;
-    margin-right: auto;
+    width: calc(100vw - 14px);
+    max-width: none;
+    grid-template-columns: none;
+    justify-content: flex-start;
+    gap: 10px;
+    margin-left: 0;
+    margin-right: -14px;
+    padding-right: 14px;
   }
 
   .main-content .member-card,
   .member-card {
     display: block;
+    flex-basis: 154px;
+    width: 154px;
+    min-width: 154px;
     min-height: auto;
-    padding: 8px 4px;
+    padding: 12px 8px 10px;
     border-radius: 8px;
     text-align: center;
   }
 
   .main-content .member-photo,
   .member-photo {
-    width: 48px !important;
-    margin: 0 auto 7px;
+    width: 64px !important;
+    margin: 0 auto 8px;
     border-radius: 11px;
   }
 
@@ -1135,7 +1174,7 @@ hr {
   .member-link {
     max-width: 100%;
     display: block;
-    margin-top: 5px;
+    margin-top: 6px;
     font-size: 9px;
     overflow-wrap: anywhere;
     word-break: break-word;
@@ -1176,17 +1215,20 @@ hr {
     width: 56px;
   }
 
-  .member-card {
-    padding: 8px 4px;
+  .member-grid {
+    gap: 8px;
+    grid-template-columns: none;
   }
 
-  .member-grid {
-    grid-template-columns: repeat(3, 86px);
-    max-width: 320px;
+  .member-card {
+    flex-basis: 146px;
+    width: 146px;
+    min-width: 146px;
+    padding: 11px 7px 10px;
   }
 
   .member-photo {
-    width: 48px !important;
+    width: 60px !important;
   }
 
   .member-card h3 {
