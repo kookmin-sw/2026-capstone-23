@@ -1,13 +1,19 @@
 # LLMong
 
 <div align="center">
-  <img width="420" alt="Durmon:t Logo" src="./assets/images/logo.svg#gh-light-mode-only" />
-  <img width="420" alt="Durmon:t Logo" src="./assets/images/logo-dark.svg#gh-dark-mode-only" />
 
-  <br />
-  <br />
+<img width="400" height="225" alt="Durmon:t" src="https://github.com/user-attachments/assets/6873de50-6b18-41ee-9d45-1a84bcdaf3f1" />
 
-  <strong>문서의 가치를 구조화하다.</strong>
+<br />
+<br />
+
+<p>
+  안녕하세요. 여기는 <strong>2026년도 캡스톤 23조 Durmon:t</strong>의 GitHub입니다.
+</p>
+
+<br />
+
+<h1>ᕱ Durmon:t ᕱ</h1>
 
   <p>
     LLMong은 HWP, PDF, 이미지, Excel 문서를 AI 기반으로 구조화하여
