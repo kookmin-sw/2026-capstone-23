@@ -1,7 +1,8 @@
 # LLMong
 
 <div align="center">
-  <img width="420" alt="Durmon:t Logo" src="./assets/images/logo.svg" />
+  <img width="420" alt="Durmon:t Logo" src="./assets/images/logo.svg#gh-light-mode-only" />
+  <img width="420" alt="Durmon:t Logo" src="./assets/images/logo-dark.svg#gh-dark-mode-only" />
 
   <br />
   <br />
@@ -374,6 +375,7 @@ processing
       convertdoc.svg
       dashboard.svg
       dashboarddoc.svg
+      logo-dark.svg
       logo.svg
       model.svg
       pipeline.svg
