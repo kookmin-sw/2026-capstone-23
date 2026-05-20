@@ -905,29 +905,47 @@ hr {
   }
 
   .member-grid {
-    grid-template-columns: 1fr;
-    gap: 14px;
+    width: calc(100vw - 32px);
+    max-width: calc(100vw - 32px);
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 8px;
     margin: 16px 0 24px;
   }
 
   .member-card {
+    min-width: 0;
+    overflow: hidden;
     min-height: auto;
-    padding: 16px;
+    padding: 10px 6px;
   }
 
   .member-photo {
-    width: min(112px, 100%) !important;
-    margin-bottom: 12px;
-    border-radius: 16px;
+    width: min(64px, 100%) !important;
+    margin-bottom: 8px;
+    border-radius: 12px;
   }
 
   .member-card h3 {
-    font-size: 18px;
+    font-size: 14px;
+    line-height: 1.18;
   }
 
-  .member-card h3 span,
+  .member-card h3 span {
+    font-size: 10px;
+    line-height: 1.2;
+  }
+
   .member-card p {
-    font-size: 13px;
+    display: none;
+  }
+
+  .member-link {
+    max-width: 100%;
+    display: block;
+    margin-top: 6px;
+    font-size: 10px;
+    overflow-wrap: anywhere;
+    word-break: break-word;
   }
 
   .stack-card {
@@ -973,45 +991,57 @@ hr {
 
   .main-content .member-grid,
   .member-grid {
-    grid-template-columns: 1fr;
-    gap: 14px;
+    width: 100%;
+    max-width: 350px;
+    grid-template-columns: repeat(3, 96px);
+    justify-content: space-between;
+    gap: 8px 0;
+    margin-left: auto;
+    margin-right: auto;
   }
 
   .main-content .member-card,
   .member-card {
-    display: grid;
-    grid-template-columns: 72px minmax(0, 1fr);
-    column-gap: 13px;
-    align-items: center;
+    display: block;
     min-height: auto;
-    padding: 14px;
+    padding: 8px 4px;
     border-radius: 8px;
-    text-align: left;
+    text-align: center;
   }
 
   .main-content .member-photo,
   .member-photo {
-    grid-row: 1 / span 5;
-    width: 72px !important;
-    margin: 0;
-    border-radius: 14px;
+    width: 48px !important;
+    margin: 0 auto 7px;
+    border-radius: 11px;
   }
 
   .main-content .member-card h3,
   .member-card h3 {
-    margin-bottom: 6px;
-    font-size: 17px;
+    margin-bottom: 5px;
+    font-size: 12px;
+  }
+
+  .main-content .member-card h3 span,
+  .member-card h3 span {
+    margin-top: 3px;
+    font-size: 9px;
+    line-height: 1.15;
   }
 
   .main-content .member-card p,
   .member-card p {
-    margin: 2px 0;
-    font-size: 13px;
+    display: none;
   }
 
   .main-content .member-link,
   .member-link {
-    margin-top: 6px;
+    max-width: 100%;
+    display: block;
+    margin-top: 5px;
+    font-size: 9px;
+    overflow-wrap: anywhere;
+    word-break: break-word;
   }
 
   .stack-badges img {
@@ -1043,12 +1073,26 @@ hr {
   }
 
   .member-card {
-    grid-template-columns: 64px minmax(0, 1fr);
-    padding: 13px 12px;
+    padding: 8px 4px;
+  }
+
+  .member-grid {
+    grid-template-columns: repeat(3, 86px);
+    max-width: 320px;
   }
 
   .member-photo {
-    width: 64px !important;
+    width: 48px !important;
+  }
+
+  .member-card h3 {
+    font-size: 12px;
+  }
+
+  .member-card h3 span,
+  .member-card p,
+  .member-link {
+    font-size: 8px;
   }
 
   .hero-banner-icon {
