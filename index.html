@@ -14,7 +14,12 @@
       <a class="sidebar-brand" href="#top" aria-label="LLMong 홈">
         <img src="assets/images/icon.svg" alt="LLMong">
       </a>
-      <nav class="side-nav" aria-label="페이지 섹션 이동">
+      <button class="mobile-nav-toggle" type="button" aria-label="메뉴 열기" aria-expanded="false" aria-controls="site-nav">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+      <nav class="side-nav" id="site-nav" aria-label="페이지 섹션 이동">
         <a class="side-nav-brand" href="#top">LLMong</a>
         <a href="#project">프로젝트 소개</a>
         <a href="#background">서비스 개발 배경</a>
@@ -444,6 +449,40 @@
 
     <script>
       (() => {
+        const sidebar = document.querySelector('.site-sidebar');
+        const mobileToggle = document.querySelector('.mobile-nav-toggle');
+        const sideNav = document.querySelector('.side-nav');
+
+        if (sidebar && mobileToggle && sideNav) {
+          const setMobileMenu = (isOpen) => {
+            sidebar.classList.toggle('is-open', isOpen);
+            mobileToggle.setAttribute('aria-expanded', String(isOpen));
+            mobileToggle.setAttribute('aria-label', isOpen ? '메뉴 닫기' : '메뉴 열기');
+          };
+
+          mobileToggle.addEventListener('click', () => {
+            setMobileMenu(!sidebar.classList.contains('is-open'));
+          });
+
+          sideNav.addEventListener('click', (event) => {
+            if (event.target.closest('a') && window.innerWidth <= 960) {
+              setMobileMenu(false);
+            }
+          });
+
+          window.addEventListener('resize', () => {
+            if (window.innerWidth > 960) {
+              setMobileMenu(false);
+            }
+          });
+
+          window.addEventListener('keydown', (event) => {
+            if (event.key === 'Escape') {
+              setMobileMenu(false);
+            }
+          });
+        }
+
         const navItems = Array.from(document.querySelectorAll('.side-nav a[href^="#"]'))
           .map((link) => {
             const id = link.getAttribute('href').slice(1);
