@@ -203,17 +203,34 @@ section {
   font-weight: 700;
 }
 
+.hero-banner-frame {
+  position: relative;
+  width: 100%;
+  max-width: 860px;
+  margin: 20px auto 0;
+}
+
 .hero-banner {
   width: 100%;
   max-width: 860px;
   aspect-ratio: 1600 / 300;
   height: auto;
   display: block;
-  margin: 20px auto 0;
+  margin: 0;
   border: 1px solid rgba(224, 231, 241, 0.92);
   border-radius: 5px;
   background: #ffffff;
   box-shadow: var(--shadow-media);
+}
+
+.hero-banner-icon {
+  position: absolute;
+  left: clamp(22px, 6%, 54px);
+  top: 50%;
+  width: clamp(72px, 14%, 122px);
+  height: auto;
+  transform: translateY(-50%);
+  pointer-events: none;
 }
 
 .section-image {

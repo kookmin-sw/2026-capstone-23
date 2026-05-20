@@ -1,6 +1,5 @@
-<svg width="1600" height="300" viewBox="0 0 1600 300" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<svg width="1600" height="300" viewBox="0 0 1600 300" fill="none" xmlns="http://www.w3.org/2000/svg">
   <rect width="1600" height="300" fill="#ffffff"/>
-  <image x="96" y="45" width="210" height="210" href="icon.svg" xlink:href="icon.svg" preserveAspectRatio="xMidYMid meet"/>
   <g transform="translate(330 75)">
     <text x="0" y="75" fill="#11234A" font-family="Pretendard, Arial, sans-serif" font-size="82" font-weight="900" letter-spacing="1.5">DOC PARSER</text>
     <text x="2" y="136" fill="#51658F" font-family="Pretendard, Arial, sans-serif" font-size="38" font-weight="700">문서의 가치를 구조화하다</text>
