@@ -1,0 +1,8 @@
+{
+  "file": "table_simple01.png",
+  "text": "구분 담당기관 연락처 사업문의 한국정보통신진흥협회 (KAIT) 02-580-0213 02-580-0215 gpu@kait.or.kr 기타문의 정보통신산업진흥원 (NIPA) 043-931-5736 aiinfra@nipa.kr",
+  "tables": [
+    "<table><tr><th>구분</th><th>담당기관</th><th colspan=\"2\">연락처</th></tr><tr><td rowspan=\"2\">사업문의</td><td rowspan=\"2\">한국정보통신진흥협회 (KAIT)</td><td>02-580-0213</td><td rowspan=\"2\">gpu@kait.or.kr</td></tr><tr><td>02-580-0215</td></tr><tr><td>기타문의</td><td>정보통신산업진흥원 (NIPA)</td><td>043-931-5736</td><td>aiinfra@nipa.kr</td></tr></table>"
+  ],
+  "has_multipage_table": false
+}

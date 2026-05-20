@@ -1,0 +1,8 @@
+{
+  "file": "table_complex19.png",
+  "text": "분임전도금 취급담당 직·성명 예 산 액 (방침결정액) 전 도 금 액 정 산 금 액 증 감 (잔 액) 비 고 전회까지 교 부 액 금 회 교부액 계 기 정 산 액 금 회 정산액 계",
+  "tables": [
+    "<table><tr><th rowspan=\"2\">분임전도금<br>취급담당<br>직·성명</th><th rowspan=\"2\">예 산 액<br>(방침결정액)</th><th colspan=\"3\">전 도 금 액</th><th colspan=\"3\">정 산 금 액</th><th rowspan=\"2\">증 감<br>(잔 액)</th><th rowspan=\"2\">비 고</th></tr><tr><th>전회까지<br>교 부 액</th><th>금 회<br>교부액</th><th>계</th><th>기 정<br>산 액</th><th>금 회<br>정산액</th><th>계</th></tr><tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr></table>"
+  ],
+  "has_multipage_table": false
+}

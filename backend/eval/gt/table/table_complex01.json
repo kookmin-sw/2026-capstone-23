@@ -1,0 +1,8 @@
+{
+  "file": "table_complex01.png",
+  "text": "구분 산업업 사용자 학계·연구계 사용자 일반 기업 청년 기업(50%) GPU 1장 (월 기준) 서버1대 (월 기준) GPU 1장 (월 기준) 서버1대 (월 기준) H200 40만원 320만원 20만원 160만원 무상 지원 B200 80만원 640만원 40만원 320만원",
+  "tables": [
+    "<table>\n  <tr>\n    <th rowspan=\"2\">구분</th>\n    <th colspan=\"4\">산업업 사용자</th>\n    <th rowspan=\"2\">학계·연구계 사용자</th>\n  </tr>\n  <tr>\n    <th colspan=\"2\">일반 기업</th>\n    <th colspan=\"2\">청년 기업(50%)</th>\n  </tr>\n  <tr>\n    <th></th>\n    <th>GPU 1장 (월 기준)</th>\n    <th>서버1대 (월 기준)</th>\n    <th>GPU 1장 (월 기준)</th>\n    <th>서버1대 (월 기준)</th>\n    <th></th>\n  </tr>\n  <tr>\n    <td>H200</td>\n    <td>40만원</td>\n    <td>320만원</td>\n    <td>20만원</td>\n    <td>160만원</td>\n    <td rowspan=\"2\">무상 지원</td>\n  </tr>\n  <tr>\n    <td>B200</td>\n    <td>80만원</td>\n    <td>640만원</td>\n    <td>40만원</td>\n    <td>320만원</td>\n  </tr>\n</table>"
+  ],
+  "has_multipage_table": false
+}

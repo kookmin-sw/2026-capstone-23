@@ -1,0 +1,134 @@
+# Python-generated files
+__pycache__/
+*.py[oc]
+*.pyc
+*.pyo
+*.pyd
+.Python
+build/
+dist/
+wheels/
+*.egg-info
+*.egg
+.eggs/
+
+# Virtual environments
+.venv
+venv/
+ENV/
+env/
+.conda/
+
+# Environment variables and secrets
+.env
+.env.local
+.env.*.local
+*.env
+**/.env
+
+# IDE and editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+*.sublime-project
+*.sublime-workspace
+
+# Data directory (all files and subdirectories)
+# Ignore all contents but keep directory structure with .gitkeep files
+# Note: .gitkeep files are tracked to preserve directory structure
+# To add .gitkeep files: git add -f data/.gitkeep data/*/.gitkeep
+data/**
+!data/.gitkeep
+!data/inputs/.gitkeep
+!data/outputs/.gitkeep
+!data/tmp/.gitkeep
+
+# Logs and temporary files
+*.log
+*.log.*
+logs/
+reports/
+*.tmp
+*.temp
+*.bak
+*.backup
+*.cache
+
+# Model files
+# Keep local model artifacts outside git. Configure QWEN_MODEL_HOST_DIR for compose.
+models/**
+!models/.gitkeep
+!models/README.md
+
+# Jupyter Notebook
+.ipynb_checkpoints
+*.ipynb
+
+# pytest
+.pytest_cache/
+.hypothesis/
+.coverage
+.coverage.*
+coverage/
+coverage.xml
+htmlcov/
+.tox/
+pytest-cache-files-*/
+
+# mypy
+.mypy_cache/
+.dmypy.json
+dmypy.json
+
+# Ruff
+.ruff_cache/
+
+# Pyre type checker
+.pyre/
+
+# System files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Desktop.ini
+
+# eval artifacts
+eval/results/
+eval/results/excel_demo/
+eval/data/
+eval/tmp/
+eval/gt_review.html
+
+# local benchmark outputs
+data/benchmarks/
+
+# temporary evaluation inputs (optional)
+data/eval_inputs/
+
+
+# Service files (may contain sensitive paths)
+# Uncomment if you don't want to track service files
+# *.service
+luminir-dp.service
+
+# Lock files (optional - some teams prefer to track these)
+# uv.lock
+# poetry.lock
+# Pipfile.lock
+
+# Output files (from conversion results)
+# Note: Only ignore output files in data/ directory
+# Keep source code files like requirements.txt, README files, etc.
+
+# Keep directory structure but ignore contents
+# .gitkeep files are tracked to preserve directory structure
+!**/.gitkeep
+
+.service

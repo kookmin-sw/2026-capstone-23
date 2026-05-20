@@ -1,0 +1,8 @@
+{
+  "file": "table_complex17.png",
+  "text": "설계의 경제성 등 검토제안서 제안자 ① 상호 또는 명칭 ② 면허 또는 등록 번 호 ③ 주 소 (전화 : ) ④ 대 표 자 성 명 ⑤ 주민등록번호 사업개요 ⑥ 사 업 명 ⑦ 기 간 ⑧ 발 주 처 제안내용 ⑨ 제 안 건 수 ⑩ 절 감 액 년 월 일 제 안 인 (인)",
+  "tables": [
+    "<table><tr><th colspan=\"5\">설계의 경제성 등 검토제안서</th></tr><tr><td rowspan=\"3\">제안자</td><td>① 상호 또는 명칭</td><td></td><td>② 면허 또는 등록<br>번 호</td><td></td></tr><tr><td colspan=\"2\">③ 주 소</td><td colspan=\"2\">(전화 : )</td></tr><tr><td>④ 대 표 자 성 명</td><td></td><td>⑤ 주민등록번호</td><td></td></tr><tr><td rowspan=\"2\">사업개요</td><td>⑥ 사 업 명</td><td></td><td>⑦ 기 간</td><td></td></tr><tr><td>⑧ 발 주 처</td><td colspan=\"3\"></td></tr><tr><td rowspan=\"2\">제안내용</td><td>⑨ 제 안 건 수</td><td></td><td>⑩ 절 감 액</td><td></td></tr><tr><td colspan=\"4\">년&nbsp;&nbsp;&nbsp;&nbsp;월&nbsp;&nbsp;&nbsp;&nbsp;일<br><br>제 안 인&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(인)</td></tr></table>"
+  ],
+  "has_multipage_table": false
+}

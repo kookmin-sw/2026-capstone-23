@@ -1,0 +1,208 @@
+name: ${COMPOSE_PROJECT_NAME:-luminir}
+
+x-backend-env: &backend-env
+  ONPREM_DEPLOYMENT: "1"
+  ONPREM_STARTUP_VALIDATION: ${ONPREM_STARTUP_VALIDATION:-1}
+  ENABLE_LOCAL_QWEN_MODEL: "1"
+  AUTH_REQUIRED: ${AUTH_REQUIRED:-1}
+  AUTH_DISABLED: ${AUTH_DISABLED:-0}
+  APP_SECRET_KEY: ${APP_SECRET_KEY:-}
+  DOCUMENT_ENCRYPTION_ENABLED: ${DOCUMENT_ENCRYPTION_ENABLED:-1}
+  QUEUE_BACKEND: rabbitmq
+  QUEUE_MEMORY_FALLBACK_ENABLED: "0"
+  STORE_BACKEND: sqlite
+  STATUS_CACHE_BACKEND: redis
+  REDIS_URL: redis://redis:6379/0
+  REDIS_STORE_PREFIX: ${REDIS_STORE_PREFIX:-jobs:store}
+  REDIS_STATUS_PREFIX: ${REDIS_STATUS_PREFIX:-jobs:status}
+  STATUS_CACHE_NAMESPACES: ${STATUS_CACHE_NAMESPACES:-jobs,job_items,job_events,documents,document_cache,qwen_preprocess_tasks,qwen_infer_tasks,qwen_infer_results,qwen_finalize_tasks,worker_leases}
+  RABBITMQ_USER: ${RABBITMQ_USER:-luminir}
+  RABBITMQ_PASSWORD: ${RABBITMQ_PASSWORD:-luminir-local-password}
+  RABBITMQ_URL: "amqp://${RABBITMQ_USER:-luminir}:${RABBITMQ_PASSWORD:-luminir-local-password}@rabbitmq:5672/%2F"
+  RABBITMQ_QUEUE: ${RABBITMQ_QUEUE:-jobs.queue}
+  RABBITMQ_HEARTBEAT_SECONDS: ${RABBITMQ_HEARTBEAT_SECONDS:-30}
+  DEFAULT_AUTO_EXECUTION_BACKEND: qwen_gpu
+  ENABLE_INLINE_EXEC_WORKER: "0"
+  ENABLE_INLINE_RECOVERY_WORKER: "0"
+  INPUT_ROOT: /app/data/inputs
+  OUTPUT_ROOT: /app/data/outputs
+  TMP_ROOT: /app/data/tmp
+  WORKER_MAX_CONCURRENCY: ${WORKER_MAX_CONCURRENCY:-1}
+  WORKER_MISSING_STATE_MAX_RETRIES: ${WORKER_MISSING_STATE_MAX_RETRIES:-5}
+  MAX_UPLOAD_BYTES: ${MAX_UPLOAD_BYTES:-104857600}
+  JOB_EVENTS_CLEANUP_INTERVAL_SECONDS: ${JOB_EVENTS_CLEANUP_INTERVAL_SECONDS:-60}
+  JOB_ITEM_TIMEOUT_SECONDS: ${JOB_ITEM_TIMEOUT_SECONDS:-3600}
+  OMP_NUM_THREADS: ${OMP_NUM_THREADS:-2}
+  MKL_NUM_THREADS: ${MKL_NUM_THREADS:-2}
+  OPENBLAS_NUM_THREADS: ${OPENBLAS_NUM_THREADS:-2}
+  TOKENIZERS_PARALLELISM: ${TOKENIZERS_PARALLELISM:-false}
+  QWEN_FINALIZE_MAX_RETRIES: ${QWEN_FINALIZE_MAX_RETRIES:-2}
+  QWEN_WORKER_LEASE_TTL_SECONDS: ${QWEN_WORKER_LEASE_TTL_SECONDS:-3600}
+  QWEN_WORKER_HEARTBEAT_INTERVAL_SECONDS: ${QWEN_WORKER_HEARTBEAT_INTERVAL_SECONDS:-30}
+
+x-qwen-gpu-env: &qwen-gpu-env
+  VLM_DEVICE: gpu
+  CUDA_VISIBLE_DEVICES: ${CUDA_VISIBLE_DEVICES:-0}
+  NVIDIA_VISIBLE_DEVICES: ${NVIDIA_VISIBLE_DEVICES:-all}
+  NVIDIA_DRIVER_CAPABILITIES: ${NVIDIA_DRIVER_CAPABILITIES:-compute,utility}
+  QWEN_INFER_GPU_SLOTS: ${QWEN_INFER_GPU_SLOTS:-1}
+  GPU_MAX_CONCURRENT_INFERENCE: ${GPU_MAX_CONCURRENT_INFERENCE:-1}
+  QWEN_WARMUP_ON_START: ${QWEN_WARMUP_ON_START:-1}
+  QWEN_VL_7B_MODEL_PATH: ${QWEN_VL_7B_MODEL_PATH:-/models/Qwen2.5-VL-7B-Instruct}
+  QWEN_VISION_MIN_PIXELS: ${QWEN_VISION_MIN_PIXELS:-100352}
+  QWEN_VISION_MAX_PIXELS: ${QWEN_VISION_MAX_PIXELS:-702464}
+  QWEN_TABLE_MAX_TOKENS: ${QWEN_TABLE_MAX_TOKENS:-512}
+  QWEN_FLOWCHART_MAX_TOKENS: ${QWEN_FLOWCHART_MAX_TOKENS:-384}
+  QWEN_MATH_MAX_TOKENS: ${QWEN_MATH_MAX_TOKENS:-384}
+  QWEN_IMAGE_MAX_TOKENS: ${QWEN_IMAGE_MAX_TOKENS:-384}
+  QWEN_RETRY_MAX_TOKENS: ${QWEN_RETRY_MAX_TOKENS:-768}
+  QWEN_GENERATE_MAX_TIME: ${QWEN_GENERATE_MAX_TIME:-90}
+  QWEN_RESULT_CACHE_MAX_ENTRIES: ${QWEN_RESULT_CACHE_MAX_ENTRIES:-128}
+  PYTORCH_CUDA_ALLOC_CONF: ${PYTORCH_CUDA_ALLOC_CONF:-expandable_segments:True}
+
+x-backend-common: &backend-common
+  image: ${BACKEND_IMAGE:-luminir-backend:onprem}
+  restart: unless-stopped
+  env_file:
+    - ./.env
+  environment: *backend-env
+  volumes:
+    - backend_data:/app/data
+    - ${QWEN_MODEL_HOST_DIR:-../models}:/models:ro
+  depends_on:
+    backend-data-init:
+      condition: service_completed_successfully
+    redis:
+      condition: service_healthy
+    rabbitmq:
+      condition: service_healthy
+
+services:
+  backend-data-init:
+    image: ${BACKEND_IMAGE:-luminir-backend:onprem}
+    user: root
+    restart: "no"
+    command:
+      - /bin/sh
+      - -c
+      - mkdir -p /app/data/inputs /app/data/outputs /app/data/tmp && chown -R app:app /app/data
+    volumes:
+      - backend_data:/app/data
+
+  backend:
+    <<: *backend-common
+    command: ["uvicorn", "api:app", "--host", "0.0.0.0", "--port", "8000", "--ws", "websockets"]
+    ports:
+      - "${BACKEND_PORT:-8000}:8000"
+    healthcheck:
+      test:
+        - CMD
+        - python
+        - -c
+        - "import json,sys,urllib.request; body=json.load(urllib.request.urlopen('http://127.0.0.1:8000/v1/health/ready', timeout=3)); sys.exit(0 if body.get('success') and body.get('data', {}).get('status') == 'ok' else 1)"
+      interval: 30s
+      timeout: 5s
+      start_period: 30s
+      retries: 5
+
+  worker-qwen-doc:
+    <<: *backend-common
+    healthcheck:
+      test: ["CMD", "python", "scripts/worker_healthcheck.py"]
+      interval: 30s
+      timeout: 10s
+      start_period: 30s
+      retries: 3
+    environment:
+      <<: *backend-env
+      WORKER_MODE: qwen_doc
+      WORKER_ID: qwen-doc
+    command:
+      - python
+      - -m
+      - worker.main
+
+  worker-qwen-infer:
+    <<: *backend-common
+    healthcheck:
+      test: ["CMD", "python", "scripts/worker_healthcheck.py"]
+      interval: 30s
+      timeout: 10s
+      start_period: 120s
+      retries: 3
+    environment:
+      <<: [*backend-env, *qwen-gpu-env]
+      WORKER_MODE: qwen_infer
+      WORKER_ID: qwen-infer
+      WORKER_MAX_CONCURRENCY: ${QWEN_INFER_WORKER_MAX_CONCURRENCY:-1}
+    command:
+      - python
+      - -m
+      - worker.main
+    gpus: all
+
+  worker-qwen-finalize:
+    <<: *backend-common
+    healthcheck:
+      test: ["CMD", "python", "scripts/worker_healthcheck.py"]
+      interval: 30s
+      timeout: 10s
+      start_period: 30s
+      retries: 3
+    environment:
+      <<: *backend-env
+      WORKER_MODE: qwen_finalize
+      WORKER_ID: qwen-finalize
+    command:
+      - python
+      - -m
+      - worker.main
+
+  recovery:
+    <<: *backend-common
+    healthcheck:
+      test: ["CMD", "python", "scripts/worker_healthcheck.py"]
+      interval: 30s
+      timeout: 10s
+      start_period: 30s
+      retries: 3
+    command:
+      - /bin/sh
+      - -lc
+      - python -c "from core.env import env_str; from worker.recovery import run_recovery_worker; run_recovery_worker(worker_id=env_str('HOSTNAME', 'recovery'))"
+
+  redis:
+    image: ${REDIS_IMAGE:-redis:7-alpine}
+    restart: unless-stopped
+    command: ["redis-server", "--appendonly", "yes"]
+    ports:
+      - "${REDIS_BIND_HOST:-127.0.0.1}:${REDIS_PORT:-6379}:6379"
+    volumes:
+      - redis_data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  rabbitmq:
+    image: ${RABBITMQ_IMAGE:-rabbitmq:3-management}
+    restart: unless-stopped
+    environment:
+      RABBITMQ_DEFAULT_USER: ${RABBITMQ_USER:-luminir}
+      RABBITMQ_DEFAULT_PASS: ${RABBITMQ_PASSWORD:-luminir-local-password}
+    ports:
+      - "${RABBITMQ_BIND_HOST:-127.0.0.1}:${RABBITMQ_PORT:-5672}:5672"
+      - "${RABBITMQ_MANAGEMENT_BIND_HOST:-127.0.0.1}:${RABBITMQ_MANAGEMENT_PORT:-15672}:15672"
+    volumes:
+      - rabbitmq_data:/var/lib/rabbitmq
+    healthcheck:
+      test: ["CMD", "rabbitmq-diagnostics", "-q", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+
+volumes:
+  backend_data:
+  redis_data:
+  rabbitmq_data:

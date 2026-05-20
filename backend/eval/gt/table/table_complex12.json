@@ -1,0 +1,8 @@
+{
+  "file": "table_complex12.png",
+  "text": "구 분 소 속 직 위 성 명 계약부서 상생조달처 계약실 실장 김성효 부장 황치호 차장 정승용 대리 최민규 계약요청부서 ICT기획처 SW기획실 실장 정강식 부장 이길량 차장 김재연",
+  "tables": [
+    "<table><tbody><tr><th>구 분</th><th>소 속</th><th>직 위</th><th>성 명</th></tr><tr><td rowspan=\"4\">계약부서</td><td rowspan=\"4\">상생조달처 계약실</td><td>실장</td><td>김성효</td></tr><tr><td>부장</td><td>황치호</td></tr><tr><td>차장</td><td>정승용</td></tr><tr><td>대리</td><td>최민규</td></tr><tr><td rowspan=\"3\">계약요청부서</td><td rowspan=\"3\" class=\"\">ICT기획처 <br>SW기획실</td><td>실장</td><td class=\"\">정강식</td></tr><tr><td>부장</td><td>이길량</td></tr><tr><td>차장</td><td>김재연</td></tr></tbody></table>"
+  ],
+  "has_multipage_table": false
+}

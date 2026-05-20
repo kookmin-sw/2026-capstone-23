@@ -1,0 +1,142 @@
+{% extends "layout.html" %}
+{% block content %}
+<div class="page-header d-print-none">
+    <div class="container-xl">
+        <div class="row g-2 align-items-center">
+            <div class="col">
+                <h2 class="page-title">Overview</h2>
+                <div class="text-secondary">Operational snapshot for internal management.</div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="page-body">
+    <div class="container-xl">
+        {% if warnings %}
+        <div class="row row-deck row-cards mb-3">
+            <div class="col-12">
+                <div class="alert alert-warning">
+                    {% for warning in warnings %}
+                    <div>{{ warning }}</div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+        {% endif %}
+
+        <div class="row row-deck row-cards">
+            {% for item in counts %}
+            <div class="col-sm-6 col-lg-2">
+                <div class="card card-sm">
+                    <div class="card-body">
+                        <div class="text-secondary">{{ item.label }}</div>
+                        <div class="h1 m-0">{{ item.count }}</div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+
+        <div class="row row-deck row-cards mt-3">
+            <div class="col-lg-6">
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">Queue</h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="mb-2"><strong>Backend:</strong> {{ queue_info.backend }}</div>
+                        <table class="table table-sm">
+                            <thead>
+                                <tr>
+                                    <th>Route</th>
+                                    <th>Queued</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for route, count in queue_info.queues.items() %}
+                                <tr>
+                                    <td>{{ route }}</td>
+                                    <td>{{ count }}</td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">Storage</h3>
+                    </div>
+                    <div class="card-body">
+                        <div><strong>Configured Path:</strong> {{ storage.storagePath }}</div>
+                        <div><strong>Input Root:</strong> {{ storage.inputRoot }}</div>
+                        <div><strong>Output Root:</strong> {{ storage.outputRoot }}</div>
+                        <div><strong>Tmp Root:</strong> {{ storage.tmpRoot }}</div>
+                        <div><strong>Usage:</strong> {{ storage.usage.usedBytes }} / {{ storage.usage.totalBytes }} ({{ storage.usage.usagePercent }}%)</div>
+                        <div><strong>Updated At:</strong> {{ storage.updatedAt or "-" }}</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row row-deck row-cards mt-3">
+            <div class="col-lg-6">
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">Recent Jobs</h3>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="table table-vcenter card-table">
+                            <thead>
+                                <tr>
+                                    <th>Job ID</th>
+                                    <th>Status</th>
+                                    <th>Updated</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for item in recent_jobs %}
+                                <tr>
+                                    <td>{{ item.jobId }}</td>
+                                    <td>{{ item.status }}</td>
+                                    <td>{{ item.updatedAt }}</td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">Recent Documents</h3>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="table table-vcenter card-table">
+                            <thead>
+                                <tr>
+                                    <th>Document ID</th>
+                                    <th>Status</th>
+                                    <th>Filename</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for item in recent_documents %}
+                                <tr>
+                                    <td>{{ item.documentId }}</td>
+                                    <td>{{ item.latestStatus }}</td>
+                                    <td>{{ item.originalFilename }}</td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

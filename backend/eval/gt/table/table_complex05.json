@@ -1,0 +1,8 @@
+{
+  "file": "table_complex05.png",
+  "text": "구분 기반구조 및 환경 비고 농지상시조사 분석시스템 운영체계 Windows, Linux 웹서버 Tomcat, JEUS-webtob DBMS Oracle 19c, PostgreSQL DB암호화 Ksign SecureDB 미들웨어 GeoServer 개발언어 Java, JSP, Python(AI) 리포트서버 JasperReport, CLIPReport 형상관리 SVN 모바일앱 운영체계 Android(모바일전자정부기반)",
+  "tables": [
+    "<table>\n  <tr>\n    <th colspan=\"2\">구분</th>\n    <th>기반구조 및 환경</th>\n    <th>비고</th>\n  </tr>\n  <tr>\n    <th rowspan=\"8\">농지상시조사<br>분석시스템</th>\n    <th>운영체계</th>\n    <td>Windows, Linux</td>\n    <td rowspan=\"9\"></td>\n  </tr>\n  <tr>\n    <th>웹서버</th>\n    <td>Tomcat, JEUS-webtob</td>\n  </tr>\n  <tr>\n    <th>DBMS</th>\n    <td>Oracle 19c, PostgreSQL</td>\n  </tr>\n  <tr>\n    <th>DB암호화</th>\n    <td>Ksign SecureDB</td>\n  </tr>\n  <tr>\n    <th>미들웨어</th>\n    <td>GeoServer</td>\n  </tr>\n  <tr>\n    <th>개발언어</th>\n    <td>Java, JSP, Python(AI)</td>\n  </tr>\n  <tr>\n    <th>리포트서버</th>\n    <td>JasperReport, CLIPReport</td>\n  </tr>\n  <tr>\n    <th>형상관리</th>\n    <td>SVN</td>\n  </tr>\n  <tr>\n    <th>모바일앱</th>\n    <th>운영체계</th>\n    <td>Android(모바일전자정부기반)</td>\n  </tr>\n</table>"
+  ],
+  "has_multipage_table": false
+}

@@ -1,31 +1,76 @@
-[![Review Assignment Due Date](https://classroom.github.com/assets/deadline-readme-button-22041afd0340ce965d47ae6ef1cefeee28c7c493a6346c4f15d667ab976d596c.svg)](https://classroom.github.com/a/Lvs6kcL8)
+# LLMong
 
 <div align="center">
+  <img width="420" alt="Durmon:t Logo" src="./assets/images/logo.svg" />
 
-<img width="400" height="225" alt="Durmon:t" src="https://github.com/user-attachments/assets/6873de50-6b18-41ee-9d45-1a84bcdaf3f1" />
+  <br />
+  <br />
 
-<br />
-<br />
+  <strong>문서의 가치를 구조화하다.</strong>
 
-<p>
-  안녕하세요. 여기는 <strong>2026년도 캡스톤 23조 Durmon:t</strong>의 GitHub입니다.
-</p>
+  <p>
+    LLMong은 HWP, PDF, 이미지, Excel 문서를 AI 기반으로 구조화하여
+    RAG 검색과 질의응답에 활용 가능한 데이터로 변환하는 문서 파싱 서비스입니다.
+  </p>
 
-<br />
-
-<h1>ᕱ Durmon:t ᕱ</h1>
-
-<h3>From Complex Documents to AI-Ready Knowledge</h3>
-
-<p>
-  Durmon:t는 복잡한 문서를 AI가 이해할 수 있는 구조로 변환하고,<br />
-  검색과 질의응답까지 연결하는 문서 AI 기술을 만듭니다.
-</p>
-
+  <p>
+    국민대학교 소프트웨어융합대학 2026 캡스톤디자인 23조 <strong>Durmon:t</strong><br />
+    산학협력 프로젝트 협력: <strong>르몽</strong>
+  </p>
 </div>
 
-### 팀원 소개
+<br />
 
+## 목차
+
+1. [프로젝트 소개](#프로젝트-소개)
+2. [팀원 소개](#팀원-소개)
+3. [기술 스택](#기술-스택)
+4. [주요 기능](#주요-기능)
+5. [시연 영상](#시연-영상)
+6. [시스템 구조도](#시스템-구조도)
+7. [폴더 구조](#폴더-구조)
+8. [실행 가이드](#실행-가이드)
+9. [BM](#bm)
+
+<br />
+
+## 프로젝트 소개
+
+<p align="center">
+  <img width="820" alt="LLMong 프로젝트 포스터" src="./assets/images/poster.svg" />
+</p>
+
+LLMong은 복잡한 업무 문서를 단순 파일이 아닌 **검색 가능한 지식 데이터**로 변환하는 문서 AI 서비스입니다.
+
+기존 업무 문서는 HWP, PDF, 스캔 이미지, 표, 차트, 수식처럼 형식과 레이아웃이 다양합니다. 일반적인 텍스트 추출만으로는 문서의 구조, 표의 의미, 이미지 설명, 메타데이터를 충분히 보존하기 어렵고, 그 결과 RAG 검색 또는 LLM 질의응답에 바로 활용하기 어렵습니다.
+
+LLMong은 문서를 업로드하면 텍스트, 표, 이미지, 메타데이터를 추출하고, 이를 Markdown, HTML table, chunk, embedding 기반 검색 데이터로 변환하는 것을 목표로 합니다. 최종적으로 사용자는 업로드한 문서를 기반으로 자연어 검색과 질의응답을 수행할 수 있습니다.
+
+### 핵심 처리 흐름
+
+```text
+문서 업로드
+  ↓
+비동기 변환 Job 생성
+  ↓
+문서 전처리 및 페이지 분석
+  ↓
+VLM/OCR 기반 텍스트, 표, 이미지 구조 추출
+  ↓
+결과 병합 및 Markdown/HTML/텍스트 변환
+  ↓
+chunk 및 embedding 생성
+  ↓
+RAG 검색 및 질의응답
+```
+
+<br />
+
+## 팀원 소개
+<p align="center">
+  <img width="780" alt="LLMong Service Preview" src="./assets/images/readme-banner.gif" />
+</p>
 <table>
   <tr>
     <td align="center" width="180px">
@@ -87,188 +132,288 @@
 
 <br />
 
-## LLMong
+## 기술 스택
 
-문서를 AI 기반으로 구조화하여 RAG 검색 및 질의응답에 최적화된 데이터로 전환하는 문서 파싱 서비스입니다.
-HWP/HWPX, PDF, 이미지, Excel 문서를 업로드하면 텍스트, 표, 이미지, 메타데이터를 추출하고, 검색 가능한 지식 데이터로 변환합니다.
+### Frontend
 
-<p align="center">
-<img width="10985" height="11812" alt="Image" src="https://github.com/user-attachments/assets/842e3b66-fb85-4624-aab3-8bb7725b2ebb" />
-## 프로젝트 소개
-
-**LLMong**은 다양한 형식의 업무 문서를 AI가 활용할 수 있는 구조화 데이터로 변환하는 문서 파싱 서비스입니다.
-복잡한 문서 포맷과 레이아웃을 분석해 텍스트, 표, 이미지, 메타데이터를 추출하고, RAG 검색과 질의응답에 연결할 수 있는 데이터 흐름을 제공합니다.
-
-<br />
-
-## 서비스 개발 배경
-
-LLM과 RAG를 업무 문서에 활용하려면 사내 문서를 단순 보관 파일이 아니라 **검색 가능한 데이터**로 정리하는 과정이 필요합니다.
-
-하지만 실제 회사에서 사용하는 업무 문서는 **HWP, PDF, 스캔 이미지, 표, 차트, 수식**처럼 형식이 다양하고 레이아웃이 복잡해, 일반적인 텍스트 추출만으로는 **RAG 검색에 바로 사용할 수 있는 데이터**로 변환하기 어렵습니다.
-**LLMong**은 이러한 문서를 자동으로 구조화해 **RAG 검색에 사용 가능한 데이터**를 만들기 위해 개발되었습니다.
-
-<p align="center">
-  <img width="640" alt="서비스 개발 배경" src="https://github.com/user-attachments/assets/622f58f2-1866-4083-9eb8-3e12f65a1ed2" />
+<p>
+  <img src="https://img.shields.io/badge/React-61DAFB?style=for-the-badge&logo=react&logoColor=black" alt="React" />
+  <img src="https://img.shields.io/badge/TypeScript-3178C6?style=for-the-badge&logo=typescript&logoColor=white" alt="TypeScript" />
+  <img src="https://img.shields.io/badge/Vite-646CFF?style=for-the-badge&logo=vite&logoColor=white" alt="Vite" />
+  <img src="https://img.shields.io/badge/Tailwind_CSS-06B6D4?style=for-the-badge&logo=tailwindcss&logoColor=white" alt="Tailwind CSS" />
+  <img src="https://img.shields.io/badge/shadcn%2Fui-000000?style=for-the-badge&logo=shadcnui&logoColor=white" alt="shadcn/ui" />
+  <img src="https://img.shields.io/badge/TanStack_Router-FF4154?style=for-the-badge&logo=reactrouter&logoColor=white" alt="TanStack Router" />
+  <img src="https://img.shields.io/badge/TanStack_Query-FF4154?style=for-the-badge&logo=reactquery&logoColor=white" alt="TanStack Query" />
+  <img src="https://img.shields.io/badge/Zustand-764ABC?style=for-the-badge&logo=redux&logoColor=white" alt="Zustand" />
+  <img src="https://img.shields.io/badge/Axios-5A29E4?style=for-the-badge&logo=axios&logoColor=white" alt="Axios" />
+  <img src="https://img.shields.io/badge/Vitest-6E9F18?style=for-the-badge&logo=vitest&logoColor=white" alt="Vitest" />
+  <img src="https://img.shields.io/badge/Playwright-2EAD33?style=for-the-badge&logo=playwright&logoColor=white" alt="Playwright" />
+  <img src="https://img.shields.io/badge/Storybook-FF4785?style=for-the-badge&logo=storybook&logoColor=white" alt="Storybook" />
 </p>
 
-<p align="center">
-  <img width="640" alt="AI 개발 배경" src="https://github.com/user-attachments/assets/78b47fb9-58f4-4ada-bffe-bd067067d5e9" />
+### Backend
+
+<p>
+  <img src="https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white" alt="Python" />
+  <img src="https://img.shields.io/badge/FastAPI-009688?style=for-the-badge&logo=fastapi&logoColor=white" alt="FastAPI" />
+  <img src="https://img.shields.io/badge/SQLite-003B57?style=for-the-badge&logo=sqlite&logoColor=white" alt="SQLite" />
+  <img src="https://img.shields.io/badge/Redis-FF4438?style=for-the-badge&logo=redis&logoColor=white" alt="Redis" />
+  <img src="https://img.shields.io/badge/RabbitMQ-FF6600?style=for-the-badge&logo=rabbitmq&logoColor=white" alt="RabbitMQ" />
 </p>
 
-<p align="center">
-  <img width="640" alt="문서 파서 필요성" src="https://github.com/user-attachments/assets/c23e153b-1564-47d6-b7a9-1ffde415f5b4" />
+### AI
+
+<p>
+  <img src="https://img.shields.io/badge/Qwen2.5--VL--7B-615CED?style=for-the-badge&logo=qwen&logoColor=white" alt="Qwen2.5-VL-7B" />
+  <img src="https://img.shields.io/badge/OpenAI-412991?style=for-the-badge&logo=openai&logoColor=white" alt="OpenAI" />
+  <img src="https://img.shields.io/badge/OpenRouter-000000?style=for-the-badge&logo=openrouter&logoColor=white" alt="OpenRouter" />
 </p>
 
-<br />
+### Deployment
 
-## 문서 파서와 RAG란?
-
-### 문서 파서란?
-
-문서 파서는 HWP, PDF, 이미지처럼 서로 다른 형식의 문서에서 **텍스트, 표, 이미지, 메타데이터**를 추출하고, 검색과 분석에 사용할 수 있는 **구조화 데이터**로 바꾸는 처리 모듈입니다.
-
-LLMong은 문서 구조를 추출하는 데서 끝나지 않고, 표와 이미지 같은 비정형 요소까지 RAG 검색과 질의응답에 활용 가능한 데이터로 변환하는 것을 목표로 합니다.
-
-<p align="center">
-  <img width="680" alt="표 이미지 구조 인식" src="https://github.com/user-attachments/assets/164b3a71-c405-4a11-a811-fac658c508a6" />
+<p>
+  <img src="https://img.shields.io/badge/Docker-2496ED?style=for-the-badge&logo=docker&logoColor=white" alt="Docker" />
+  <img src="https://img.shields.io/badge/Docker_Compose-2496ED?style=for-the-badge&logo=docker&logoColor=white" alt="Docker Compose" />
+  <img src="https://img.shields.io/badge/Nginx-009639?style=for-the-badge&logo=nginx&logoColor=white" alt="Nginx" />
+  <img src="https://img.shields.io/badge/GitHub_Actions-2088FF?style=for-the-badge&logo=githubactions&logoColor=white" alt="GitHub Actions" />
 </p>
 
-### RAG란?
+### Collaboration
 
-**RAG(Retrieval-Augmented Generation)**는 LLM이 답변을 생성하기 전에 사내 문서나 데이터베이스에서 질문과 관련된 정보를 먼저 검색하고, 그 검색 결과를 근거로 답변을 만드는 방식입니다.
-
-정확한 RAG 검색을 위해서는 문서가 단순 파일 상태가 아니라 **chunk, 메타데이터, 표 구조, 이미지 설명**처럼 검색 가능한 데이터로 정리되어 있어야 합니다.
-
-변환된 문서는 chunk 단위로 분리되고, embedding을 생성해 벡터 검색에 사용할 수 있습니다.
-
-사용자가 질문하면 관련 chunk를 먼저 검색한 뒤, 검색된 문맥을 기반으로 답변을 생성합니다.
-
-답변은 원문 문서의 텍스트, 표, 이미지 설명을 함께 참조할 수 있어 단순 키워드 검색보다 정확한 문서 기반 질의응답이 가능합니다.
-
-**RAG 기반 질의응답**을 통해 사용자는 업로드한 문서의 내용을 자연어로 검색하고, 관련 문맥을 반영한 답변을 받을 수 있습니다.
-
-
-<img width="1619" height="971" alt="Image" src="https://github.com/user-attachments/assets/5f888781-5544-46eb-a38b-3ad043ff192a" />
-
-<br />
-
-## 주요 목표
-
-- HWP/HWPX, PDF, 이미지, Excel 문서에서 텍스트, 표, 이미지, 메타데이터 추출
-- 추출 결과를 .txt, 구조화 메타데이터, HTML, Markdown 표 형식으로 변환
-- API 방식과 온프레미스 방식 모두 지원하는 문서 처리 구조 제공
-- VLM 기반으로 표, 차트, 플로우차트, 수식 이미지를 유형별로 구조화
-- 변환된 문서를 chunk와 embedding 기반 RAG 검색에 사용할 수 있는 데이터로 정리
-- 업로드한 문서를 기반으로 자연어 질의응답 제공
+<p>
+  <img src="https://img.shields.io/badge/GitHub-181717?style=for-the-badge&logo=github&logoColor=white" alt="GitHub" />
+  <img src="https://img.shields.io/badge/Notion-000000?style=for-the-badge&logo=notion&logoColor=white" alt="Notion" />
+  <img src="https://img.shields.io/badge/Discord-5865F2?style=for-the-badge&logo=discord&logoColor=white" alt="Discord" />
+</p>
 
 <br />
 
 ## 주요 기능
 
-### 1. AI 문서 파싱 / 변환
+### 1. AI 문서 파싱 및 변환
 
-**HWP/HWPX, PDF, 이미지, Excel** 문서를 업로드하면 텍스트, 표, 이미지, 메타데이터를 추출합니다.
+- HWP/HWPX, PDF, Excel, CSV, PNG, JPG, BMP, TIFF 파일 업로드
+- 텍스트, 표, 이미지, 메타데이터 추출
+- 표 이미지를 HTML table 및 Markdown table 형태로 구조화
+- 차트, 플로우차트, 수식 이미지에 대한 설명형 텍스트 생성
+- 변환 결과 미리보기 및 다운로드
 
-추출 결과는 .txt, 구조화 메타데이터, HTML, Markdown 표 형식으로 변환되어 **검색, 요약, RAG**에 바로 활용할 수 있습니다.
+### 2. 비동기 Job 기반 처리
 
-변환된 결과는 문서 단위로 확인할 수 있으며, 필요한 출력 형식으로 저장해 **RAG 검색 시스템**에 연결할 수 있습니다.
+- 문서 변환 요청을 Job 단위로 생성
+- 작업 상태를 `queued -> processing -> done -> failed` 흐름으로 추적
+- 대용량 문서 처리를 위한 큐 기반 워커 구조
+- 실패 작업에 대한 에러 로그와 상태 확인
+- GPU 추론 동시성을 제한해 VRAM 초과 방지
 
-### 2. API 및 온프레미스 문서 처리 구조
+### 3. 문서 관리 대시보드
 
-**API 연계 방식**으로 기존 서비스와 연결할 수 있고, **온프레미스 방식**으로 사내망 또는 로컬 서버에 직접 배포할 수 있습니다.
+- 전체 처리 건수, 성공/실패/진행 중 Job 통계
+- 최근 문서 처리 목록 확인
+- 파일 타입별 처리 현황 확인
+- 작업 실패 로그 및 시스템 상태 확인
 
-온프레미스 방식에서는 민감한 문서를 외부로 내보내지 않고 내부 인프라에서 처리합니다.
+### 4. RAG 질의응답
 
-온프레미스 내부 처리는 **qwen_doc → qwen_infer → qwen_finalize** 단계로 분리되어 동작합니다.
+- 변환된 문서를 chunk 단위로 분리
+- embedding 기반 검색 데이터 생성
+- 문서 기반 질문 세션 생성
+- 관련 문맥을 검색한 뒤 LLM 답변 생성
+- 원문 문서의 텍스트, 표, 이미지 설명을 답변 근거로 활용
 
-문서 전처리, VLM 추론, 결과 병합/정제를 분리해 대용량 문서도 작업 상태를 추적하며 안정적으로 처리합니다.
+### 5. API 연동 구조
 
-모델은 워커에서 한 번 로딩한 뒤 재사용하고, **GPU 동시 추론 수를 제한**해 VRAM 초과를 방지합니다.
+프론트엔드는 `/api/v1`을 기본 API base URL로 사용합니다. 백엔드 응답은 다음 래퍼 구조를 기준으로 처리합니다.
 
-### 3. VLM 기반 문서 구조화 파이프라인
+```json
+{
+  "success": true,
+  "data": {},
+  "error": null
+}
+```
 
-PDF는 텍스트 블록, 이미지 영역, 표 후보, 페이지 렌더링 결과를 분리 처리해 단순 OCR보다 문서 구조를 더 안정적으로 복원합니다.
-
-이미지 기반 문서는 VLM으로 **TABLE, CHART, FLOWCHART, MATH, IMAGE** 유형을 먼저 분류하고, 유형별 프롬프트를 적용해 구조화 정확도를 높입니다.
-
-표 이미지는 셀 구조를 복원해 **HTML 테이블과 Markdown 테이블**로 변환하고, 차트는 축, 범례, 수치, 추세를 텍스트로 요약합니다.
-
-플로우차트는 노드와 연결 관계를 단계별 흐름으로 정리하고, 수식 이미지는 LaTeX 또는 설명형 텍스트로 변환할 수 있습니다.
-
-### 4. 문서 기반 RAG 질의응답
-
-변환된 문서는 chunk 단위로 분리되고, embedding을 생성해 벡터 검색에 사용할 수 있습니다.
-
-사용자가 질문하면 관련 chunk를 먼저 검색한 뒤, 검색된 문맥을 기반으로 답변을 생성합니다.
-
-답변은 원문 문서의 텍스트, 표, 이미지 설명을 함께 참조할 수 있어 단순 키워드 검색보다 정확한 문서 기반 질의응답이 가능합니다.
-
-**RAG 기반 질의응답**을 통해 사용자는 업로드한 문서의 내용을 자연어로 검색하고, 관련 문맥을 반영한 답변을 받을 수 있습니다.
-
-<br />
-
-## 기능 소개
-
-LLMong은 문서 업로드부터 변환 결과 확인, 문서 기반 RAG 질의응답까지 하나의 흐름으로 사용할 수 있도록 구성되어 있습니다.
-
-<p align="center">
-  <img width="760" alt="서비스 실사용 화면" src="https://github.com/user-attachments/assets/c6e0ba30-a9a6-44f7-8a55-241ff24bbfe3" />
-</p>
-
-<br />
-
-## 데모 및 프리뷰
-
-### 문서 변환
-
-<p align="center">
-  <img width="720" alt="문서 변환 화면" src="./assets/images/convertdoc.svg" />
-</p>
-
-### 변환 결과 보기
-
-<p align="center">
-  <img width="720" alt="변환 결과 보기 화면" src="./assets/images/dashboarddoc.svg" />
-</p>
-
-### RAG 질의응답
-
-<p align="center">
-  <img width="720" alt="RAG 질의응답 화면" src="./assets/images/rag.svg" />
-</p>
-
-<br />
-
-## 시스템 아키텍처
-
-<p align="center">
-  <img width="760" alt="시스템 아키텍처" src="https://github.com/user-attachments/assets/3a9a7bc5-8463-4e6f-a71a-5b5206f35a2f" />
-</p>
-
-<br />
-
-## 프로젝트 구조
+주요 API 흐름은 다음과 같습니다.
 
 ```text
-Luminar_DP/
+POST   /parser/jobs
+GET    /parser/jobs/{jobId}
+GET    /parser/jobs/{jobId}/items
+POST   /parser/jobs/{jobId}/cancel
+GET    /documents
+GET    /documents/{documentId}/result
+POST   /rag/sessions
+POST   /rag/sessions/{sessionId}/messages
+```
+
+<br />
+
+## 시연 영상
+
+공개 가능한 범위의 서비스 프리뷰는 아래 GIF와 화면 자료로 확인할 수 있습니다.
+
+<p align="center">
+  <img width="780" alt="LLMong Service Preview" src="./assets/images/readme-banner.gif" />
+</p>
+
+### 주요 화면
+
+| 문서 변환 | 변환 결과 확인 | RAG 질의응답 |
+| --- | --- | --- |
+| <img src="./assets/images/convertdoc.svg" alt="문서 변환 화면" width="260" /> | <img src="./assets/images/dashboarddoc.svg" alt="변환 결과 화면" width="260" /> | <img src="./assets/images/rag.svg" alt="RAG 질의응답 화면" width="260" /> |
+
+
+<br />
+
+## 시스템 구조도
+
+<p align="center">
+  <img width="820" alt="시스템 구조도" src="./assets/images/architecture.svg" />
+</p>
+
+### Architecture
+
+```text
+Client
+  |
+  v
+
+React Frontend
+  - 문서 업로드
+  - Job 상태 조회
+  - 변환 결과 미리보기
+  - RAG 질의응답 UI
+  |
+  v
+
+API Gateway / Backend
+  |
+  v
+
+FastAPI
+  - 인증 및 사용자 요청 처리
+  - /parser/jobs
+  - /documents
+  - /rag/sessions
+  |
+  v
+
+Queue / Status
+  |
+  v
+
+RabbitMQ + Redis
+  - 작업 큐
+  - 진행 상태 캐시
+  - 실패/재시도 관리
+  |
+  v
+
+Worker
+  |
+  v
+
+Document Parser / VLM Inference
+  - 문서 전처리
+  - Qwen2.5-VL 추론
+  - 표/이미지/텍스트 구조화
+  |
+  v
+
+Storage / RAG
+  - 원본 문서
+  - 변환 결과
+  - chunk
+  - embedding
+  |
+  v
+
+Answer
+  - 검색 문맥 기반 답변 생성
+  |
+  v
+
+Client
+```
+
+### 처리 상태
+
+```text
+queued
+  |
+  v
+processing
+  |
+  +--> done
+  |
+  +--> failed
+         |
+         v
+    retry 또는 사용자 확인
+```
+
+<br />
+
+## 폴더 구조
+
+현재 공개 레포지토리 기준 구조입니다.
+
+```text
+2026-capstone-23/
+  README.md
+  index.html
+  _config.yml
+
+  assets/
+    css/
+      member-cards.css
+    images/
+      architecture.svg
+      banner.svg
+      convert.svg
+      convertdoc.svg
+      dashboard.svg
+      dashboarddoc.svg
+      logo.svg
+      model.svg
+      pipeline.svg
+      poster.svg
+      rag.svg
+      rag2.svg
+      readme-banner.gif
+      service1.svg
+      service2.svg
+      service3.svg
+      show.svg
+
   backend/
+    Dockerfile
     docker-compose.yml
+    docker-compose.onprem.yml
     requirements.txt
-    pyproject.toml
+    requirements-dev.txt
+    requirements-torch.txt
+    requirements-qwen.txt
     api/
     core/
     db/
     docs/
-    eval/
+    infra/
     models/
     storage/
     tests/
-    vlm_luminir/
     worker/
 
   frontend/
+    Dockerfile
+    nginx.conf
     package.json
+    package-lock.json
+    vite.config.ts
+    tsconfig.json
+    playwright.config.ts
+    docs/
+    e2e/
     src/
       app/
       entities/
@@ -277,98 +422,113 @@ Luminar_DP/
       routes/
       shared/
       widgets/
-    e2e/
-    docs/
-
 ```
 
-<br />
+### Frontend Architecture
 
-## 🛠 기술 스택
+프론트엔드는 Feature-Sliced Design 구조를 따릅니다.
 
-### Frontend
-
-<img src="https://img.shields.io/badge/React-61DAFB?style=for-the-badge&logo=react&logoColor=black"> <img src="https://img.shields.io/badge/TypeScript-3178C6?style=for-the-badge&logo=typescript&logoColor=white"> <img src="https://img.shields.io/badge/Vite-646CFF?style=for-the-badge&logo=vite&logoColor=white"> <img src="https://img.shields.io/badge/Tailwind_CSS-06B6D4?style=for-the-badge&logo=tailwindcss&logoColor=white">
-
-### Backend
-
-<img src="https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white"> <img src="https://img.shields.io/badge/FastAPI-009688?style=for-the-badge&logo=fastapi&logoColor=white"> <img src="https://img.shields.io/badge/SQLite-003B57?style=for-the-badge&logo=sqlite&logoColor=white"> <img src="https://img.shields.io/badge/Redis-FF4438?style=for-the-badge&logo=redis&logoColor=white"> <img src="https://img.shields.io/badge/RabbitMQ-FF6600?style=for-the-badge&logo=rabbitmq&logoColor=white">
-
-### AI
-
-<img src="https://img.shields.io/badge/OpenAI-412991?style=for-the-badge&logo=openai&logoColor=white"> <img src="https://img.shields.io/badge/Qwen-615CED?style=for-the-badge&logo=qwen&logoColor=white"> <img src="https://img.shields.io/badge/OpenRouter-000000?style=for-the-badge&logo=openrouter&logoColor=white">
-
-### Deployment
-
-<img src="https://img.shields.io/badge/Docker-2496ED?style=for-the-badge&logo=docker&logoColor=white"> <img src="https://img.shields.io/badge/Docker_Compose-2496ED?style=for-the-badge&logo=docker&logoColor=white"> <img src="https://img.shields.io/badge/GitHub_Actions-2088FF?style=for-the-badge&logo=githubactions&logoColor=white">
-
-### Collaboration
-
-<img src="https://img.shields.io/badge/GitHub-181717?style=for-the-badge&logo=github&logoColor=white"> <img src="https://img.shields.io/badge/Notion-%23000000.svg?style=for-the-badge&logo=notion&logoColor=white"> <img src="https://img.shields.io/badge/Discord-%235865F2.svg?style=for-the-badge&logo=discord&logoColor=white">
-
-<br />
-
-## 🖥 개발 환경
-
-| 분류 | 기술 |
+| 디렉터리 | 역할 |
 | --- | --- |
-| OS | Windows 11 / macOS / Ubuntu Linux |
-| Frontend | React, TypeScript, Vite, Tailwind CSS |
-| Backend | Python 3.12+, FastAPI, SQLite, Redis, RabbitMQ |
-| AI | OpenAI, Qwen, OpenRouter |
-| Queue | RabbitMQ |
-| Cache | Redis |
-| Database / Storage | SQLite |
-| Deployment | Docker, Docker Compose, GitHub Actions |
-| Collaboration | GitHub, Notion, Discord |
-| Package Manager | npm, pip |
-| Local Runtime | Node.js 22 계열, Python 3.12 이상 |
-| GPU Runtime | NVIDIA driver, NVIDIA Container Toolkit, RTX 3090 24GB VRAM 이상 권장 |
+| `app/` | 앱 초기화, provider, 전역 스타일, 전역 store |
+| `pages/` | 라우트 단위 화면 |
+| `widgets/` | 대시보드, 문서 뷰어, 사이드바 등 큰 UI 블록 |
+| `features/` | 파일 업로드, AI 채팅, 인증 등 사용자 행동 단위 기능 |
+| `entities/` | document, rag, parser, session 등 도메인 데이터 |
+| `shared/` | 공통 API client, UI 컴포넌트, 타입, 유틸리티 |
+| `routes/` | TanStack Router 라우트 정의 |
 
 <br />
 
-## 설치 방법
+## 실행 가이드
 
-### 1. Repository Clone
+### 실행 가능 범위 안내
 
-```bash
-git clone https://github.com/kookmin-sw/capstone-2026-23.git cap_be
-cd cap_be
+로컬에서 전체 기능을 사용하려면 `backend/.env`에 OpenAI/OpenRouter API 키를 설정하거나, 온프레미스 Qwen 실행을 위한 모델 디렉터리를 별도로 준비해야 합니다.
+
+### 1. 프로젝트 소개 페이지
+
+LLMong 주소
+
+[https://kookmin-sw.github.io/2026-capstone-23/](https://kookmin-sw.github.io/2026-capstone-23/)
+
+Windows PowerShell:
+
+```powershell
+cd 2026-capstone-23
+Start-Process .\index.html
 ```
 
-실제 폴더명이 다르면 clone한 프로젝트 루트로 이동하면 됩니다.
+### 2. Backend 로컬 실행 - Docker Compose 권장
 
-### 2. Backend 환경 변수
+필수 환경:
 
-Docker Compose는 `backend/.env`를 읽습니다. 최소 개발용 예시는 다음과 같습니다.
+```text
+Docker Desktop
+Docker Compose
+```
+
+환경 변수 파일을 준비합니다.
+
+```powershell
+cd backend
+Copy-Item .env.example .env
+notepad .env
+```
+
+`.env`에서 최소한 아래 값은 실제 값으로 교체합니다.
 
 ```env
 ADMIN_ID=admin
 ADMIN_PW=change-me-admin-password
-ADMIN_UI_SECRET_KEY=change-me-admin-ui-secret-at-least-32-chars
-APP_SECRET_KEY=change-me-app-secret-at-least-32-chars
+ADMIN_UI_SECRET_KEY=change-me-admin-ui-secret
 
-AUTH_REQUIRED=true
+OPENROUTER_API_KEY=your_openrouter_api_key
 OPENAI_API_KEY=your_openai_api_key
-OPENAI_MODEL=gpt-5-mini
-
-RAG_PROVIDER=openai
-RAG_OPENAI_MODEL=gpt-4o-mini
-RAG_OPENAI_EMBEDDING_MODEL=text-embedding-3-small
 ```
 
-OpenRouter를 사용할 경우 다음 값을 추가합니다.
+백엔드, worker, Redis, RabbitMQ를 함께 실행합니다.
+
+```powershell
+docker compose up -d --build
+```
+
+접속 정보:
+
+```text
+Backend API:       http://localhost:8000
+Swagger:           http://localhost:8000/docs
+Health:            http://localhost:8000/v1/health
+RabbitMQ UI:       http://localhost:15672
+RabbitMQ account:  luminir / luminir-local-password
+```
+
+상태와 로그 확인:
+
+```powershell
+docker compose ps
+docker compose logs -f backend
+docker compose logs -f worker-openai
+```
+
+중지:
+
+```powershell
+docker compose down
+```
+
+포트가 이미 사용 중이면 `backend/.env`에 아래 값을 추가해 변경합니다.
 
 ```env
-OPENROUTER_API_KEY=your_openrouter_api_key
-RAG_PROVIDER=openrouter
-RAG_OPENROUTER_MODEL=openai/gpt-5-mini
-RAG_OPENROUTER_EMBEDDING_MODEL=openai/text-embedding-3-small
+BACKEND_PORT=8001
+REDIS_PORT=6380
+RABBITMQ_PORT=5673
+RABBITMQ_MANAGEMENT_PORT=15673
 ```
 
-운영/온프레미스에서는 `ADMIN_PW`, `ADMIN_UI_SECRET_KEY`, `APP_SECRET_KEY`, `RABBITMQ_PASSWORD`를 기본값이 아닌 충분히 긴 값으로 교체해야 합니다.
+### 3. Backend 로컬 실행 - Python 직접 실행
 
-### 3. Backend 로컬 설치
+Docker 없이 API 서버만 빠르게 확인할 때 사용할 수 있습니다. 문서 변환 Job까지 로컬 단일 프로세스로 확인하려면 memory queue를 사용합니다.
 
 Windows PowerShell:
 
@@ -378,6 +538,16 @@ py -3.12 -m venv .venv
 .\.venv\Scripts\Activate.ps1
 python -m pip install --upgrade pip setuptools wheel
 pip install -r requirements.txt -c requirements-torch.txt
+
+Copy-Item .env.example .env
+notepad .env
+
+$env:QUEUE_BACKEND="memory"
+$env:STORE_BACKEND="sqlite"
+$env:STATUS_CACHE_BACKEND=""
+$env:QUEUE_MEMORY_FALLBACK_ENABLED="1"
+
+python -m uvicorn api:app --host 127.0.0.1 --port 8000 --reload
 ```
 
 Linux/macOS:
@@ -388,412 +558,85 @@ python3.12 -m venv .venv
 source .venv/bin/activate
 python -m pip install --upgrade pip setuptools wheel
 pip install -r requirements.txt -c requirements-torch.txt
+
+cp .env.example .env
+
+QUEUE_BACKEND=memory \
+STORE_BACKEND=sqlite \
+STATUS_CACHE_BACKEND= \
+QUEUE_MEMORY_FALLBACK_ENABLED=1 \
+python -m uvicorn api:app --host 127.0.0.1 --port 8000 --reload
 ```
 
-Qwen 로컬 GPU worker까지 직접 실행하려면 PyTorch/CUDA와 Qwen 의존성을 추가 설치합니다.
-
-```bash
-pip install --index-url https://download.pytorch.org/whl/cu126 -r requirements-torch.txt
-pip install -r requirements-qwen.txt -c requirements-torch.txt
-```
-
-### 4. Frontend 설치
-
-```bash
-cd frontend
-npm install
-```
-
-<br />
-
-## 실행 방법
-
-### 1. Docker로 전체 실행
-
-```bash
-docker compose -f docker-compose.yml up -d --build
-```
-
-접속 정보:
-
-```text
-Frontend: http://localhost:3000
-Backend:  http://localhost:8000
-Swagger:  http://localhost:8000/docs
-Health:   http://localhost:8000/v1/health
-RabbitMQ: http://localhost:15672
-```
-
-로그와 상태 확인:
-
-```bash
-docker compose -f docker-compose.yml ps
-docker compose -f docker-compose.yml logs -f backend
-docker compose -f docker-compose.yml logs -f worker-openai
-```
-
-중지:
-
-```bash
-docker compose -f docker-compose.yml down
-```
-
-저장된 작업/문서 상태까지 삭제해야 할 때만 볼륨을 함께 제거합니다.
-
-```bash
-docker compose -f docker-compose.yml down -v
-```
-
-### 2. Backend 로컬 실행
-
-로컬에서 RabbitMQ 없이 API 동작을 빠르게 확인할 때는 `backend/.env`에 다음 개발용 값을 둘 수 있습니다.
-
-```env
-QUEUE_BACKEND=memory
-STORE_BACKEND=sqlite
-STATUS_CACHE_BACKEND=none
-ENABLE_INLINE_EXEC_WORKER=true
-ENABLE_INLINE_RECOVERY_WORKER=true
-```
-
-Windows PowerShell:
-
-```powershell
-cd backend
-.\.venv\Scripts\Activate.ps1
-uvicorn api:app --host 0.0.0.0 --port 8000 --reload
-```
-
-Linux/macOS:
-
-```bash
-cd backend
-source .venv/bin/activate
-uvicorn api:app --host 0.0.0.0 --port 8000 --reload
-```
-
-API 문서는 아래 주소에서 확인합니다.
+확인:
 
 ```text
 http://localhost:8000/docs
+http://localhost:8000/v1/health
 ```
 
-### 3. Frontend 로컬 실행
+### 4. Frontend 로컬 실행
 
-백엔드가 `localhost:8000`에서 실행 중이어야 합니다. Vite dev server는 `/api` 요청을 백엔드로 프록시합니다.
+필수 환경:
 
-```bash
+```text
+Node.js 22 계열 권장
+npm
+```
+
+실행:
+
+```powershell
 cd frontend
+npm install
 npm run dev
 ```
 
-Frontend 개발 서버:
+접속:
 
 ```text
-Docker: http://localhost:3000
-Local dev: http://localhost:5173
+http://localhost:5173
 ```
 
-기본 API base URL은 `/api/v1`입니다. 다른 백엔드 주소를 직접 지정하려면 `frontend/.env.local`에 설정합니다.
+프론트엔드는 기본 API base URL로 `/api/v1`을 사용합니다. 로컬 개발 서버는 `/api/*` 요청을 `http://localhost:8000/*`로 프록시하므로, 백엔드가 `8000` 포트에서 실행 중이면 별도 설정 없이 연동됩니다.
 
-```env
-VITE_API_BASE_URL=http://localhost:8000/api/v1
-```
-
-### 4. 온프레미스 Qwen GPU 실행
-
-로컬 GPU 서버에서 Qwen2.5-VL-7B를 사용할 때는 온프레미스 compose를 사용합니다. RTX 3090 기준으로는 먼저 GPU inference 동시성을 1로 유지합니다.
-
-`backend/.env` 또는 shell 환경변수에 다음 값을 둡니다.
-
-```env
-ENABLE_LOCAL_QWEN_MODEL=1
-DEFAULT_AUTO_EXECUTION_BACKEND=qwen_gpu
-
-QWEN_MODEL_HOST_DIR=./models
-QWEN_VL_7B_MODEL_PATH=/models/Qwen2.5-VL-7B-Instruct
-CUDA_VISIBLE_DEVICES=0
-QWEN_INFER_WORKER_MAX_CONCURRENCY=1
-QWEN_INFER_GPU_SLOTS=1
-GPU_MAX_CONCURRENT_INFERENCE=1
-
-RABBITMQ_USER=llmong
-RABBITMQ_PASSWORD=change-me-rabbitmq-password
-```
-
-모델 디렉터리는 기본적으로 `./models/Qwen2.5-VL-7B-Instruct`를 컨테이너의 `/models/Qwen2.5-VL-7B-Instruct`로 읽습니다.
-
-```bash
-docker compose -f docker-compose.onprem.yml up -d --build
-```
-
-포트가 이미 사용 중이면 `.env` 또는 shell 환경변수로 `FRONTEND_PORT`, `BACKEND_PORT`, `REDIS_PORT`, `RABBITMQ_PORT`, `RABBITMQ_MANAGEMENT_PORT`를 변경합니다.
+백엔드 포트를 `8001`처럼 바꾼 경우 `frontend/vite.config.ts`의 proxy target도 같은 포트로 수정해야 합니다.
 
 ### 5. 검증 명령
 
-Backend:
-
-```bash
-cd backend
-pip install -r requirements-dev.txt
-python -m ruff check .
-python -m pytest tests
-```
-
 Frontend:
 
-```bash
+```powershell
 cd frontend
 npm run lint
 npm run test
 npm run build
 ```
 
-Compose:
+Backend:
 
-```bash
-docker compose -f docker-compose.yml config --quiet
+```powershell
+cd backend
+.\.venv\Scripts\Activate.ps1
+pip install -r requirements-dev.txt
+python -m ruff check .
+python -m pytest tests
+docker compose config --quiet
 docker compose -f docker-compose.onprem.yml config --quiet
 ```
 
 <br />
 
-## 사용법
+## BM
 
-1. 웹 브라우저에서 프론트엔드 페이지에 접속합니다.
+LLMong은 문서 AI 전환과 RAG 기반 문서 질의응답이 필요한 기업과 기관을 대상으로 하는 **문서 파싱 AI 플랫폼**으로 확장할 예정입니다. 기업 내부 문서를 검색 가능한 지식 데이터로 구조화하고, 사용자가 자연어로 질문해 근거 기반 답변을 받을 수 있도록 지원하는 방향을 목표로 합니다.
 
-```text
-Docker: http://localhost:3000
-Local dev: http://localhost:5173
-```
+대상 고객은 HWP/PDF 기반 내부 문서가 많은 기업, 문서 검색과 사내 지식 질의응답을 도입하려는 조직, 보안상 외부 LLM 서비스 사용이 어려운 공공기관·금융·의료 분야입니다.
 
-2. 문서 업로드 화면에서 HWP, HWPX, PDF 또는 이미지 파일을 업로드합니다.
+향후 수익 모델은 세 가지 방향으로 구상하고 있습니다.
 
-3. 문서 변환 작업을 생성합니다.
+- **SaaS 구독형 서비스**: 중소기업과 스타트업이 별도 인프라 없이 문서 업로드, 변환, 검색, RAG 질의응답을 사용할 수 있도록 월/연 구독 방식으로 제공할 예정입니다.
+- **온프레미스 구축형 서비스**: 공공기관, 금융, 의료처럼 보안이 중요한 조직을 대상으로 내부 서버나 폐쇄망 설치를 지원하고, 라이선스와 구축비, 유지보수 비용을 수익화하는 방향을 고려하고 있습니다.
+- **B2B API 제공**: 자체 서비스나 업무 시스템에 문서 파싱, 구조화, RAG 질의 기능을 붙일 수 있도록 API를 제공하고, 문서 수, 페이지 수, 호출 수, 질의 요청 수 기준의 사용량 과금을 계획하고 있습니다.
 
-4. 작업 진행 상태를 확인합니다.
-
-5. 변환이 완료되면 추출된 텍스트, 표, 이미지 결과를 미리보기로 확인합니다.
-
-6. 필요한 경우 변환 결과를 다운로드합니다.
-
-7. 업로드된 문서를 기반으로 검색하거나 RAG 질의응답을 수행합니다.
-
-<br />
-
-## API 사용 예시
-
-Health check:
-
-```bash
-curl http://localhost:8000/v1/health
-```
-
-인증이 필요한 API는 로그인 또는 bootstrap 과정에서 발급된 bearer token을 `TOKEN`에 넣어 호출합니다.
-
-비동기 문서 파싱 job 생성:
-
-```bash
-curl -X POST http://localhost:8000/v1/parser/jobs \
-  -H "Authorization: Bearer ${TOKEN}" \
-  -F "files=@sample.pdf" \
-  -F "modelId=m1" \
-  -F "parallelism=1" \
-  -F "executionBackend=auto" \
-  -F "language=한국어"
-```
-
-Job 상태 조회:
-
-```bash
-curl http://localhost:8000/v1/parser/jobs/{jobId} \
-  -H "Authorization: Bearer ${TOKEN}"
-```
-
-Job item 조회:
-
-```bash
-curl http://localhost:8000/v1/parser/jobs/{jobId}/items \
-  -H "Authorization: Bearer ${TOKEN}"
-```
-
-프론트엔드 또는 Nginx를 경유할 때는 같은 API를 `/api/v1/...` 경로로 호출합니다. API 응답은 기본적으로 `{ "success": boolean, "data": ..., "error": ... }` 형식을 사용합니다.
-
-자세한 API 명세는 Swagger 문서에서 확인할 수 있습니다.
-
-```text
-http://localhost:8000/docs
-```
-
-<br />
-
-## 🤝 협업 방식
-
-Durmon:t는 프론트엔드와 백엔드를 독립적으로 개발하면서도, 전체 프로젝트 구조와 API 인터페이스의 일관성을 유지하는 방식으로 협업했습니다.
-
-### Git Flow
-
-```text
-main
- └── develop
-      ├── feature: 기능명
-      ├── fix: 버그명
-      ├── refactor: 개선명
-      ├── chore: 작업명
-      └── docs: 문서명
-```
-
-| 브랜치 | 설명 |
-| --- | --- |
-| `main` | 최종 배포 및 제출용 브랜치 |
-| `develop` | 프론트엔드와 백엔드 작업이 통합되는 개발 브랜치 |
-| `feature/*` | 새로운 기능 개발 |
-| `fix/*` | 버그 수정 |
-| `refactor/*` | 코드 구조 개선 및 리팩토링 |
-| `chore/*` | 설정, 패키지, 빌드 등 기타 작업 |
-| `docs/*` | README, API 문서 등 문서 작업 |
-
-### 개발 흐름
-
-```text
-이슈 생성
-  → 브랜치 생성
-  → 기능 개발
-  → 커밋
-  → Push
-  → Pull Request 생성
-  → 코드 리뷰 및 CI 확인
-  → develop merge
-  → main merge 및 배포/제출
-```
-
-| 단계 | 내용 |
-| --- | --- |
-| Issue | 구현할 기능, 수정할 버그, 문서 작업을 Issue로 등록 |
-| Branch | 작업 유형에 맞는 브랜치 생성 |
-| Commit | Conventional Commits 형식으로 변경 내용 기록 |
-| Push | 원격 저장소에 작업 브랜치 업로드 |
-| Pull Request | 변경 내용, 테스트 여부, 참고 사항 작성 |
-| Review | 팀원 리뷰 또는 자동화 도구 확인 후 머지 |
-| Merge | `develop`에 통합 후 안정화된 버전을 `main`에 반영 |
-
-### Branch Naming Convention
-
-| 접두사 | 용도 | 예시 |
-| --- | --- | --- |
-| `feature/` | 새로운 기능 개발 | `feature/file-upload` |
-| `fix/` | 버그 수정 | `fix/job-status-error` |
-| `refactor/` | 코드 구조 개선 | `refactor/parser-pipeline` |
-| `chore/` | 설정, 패키지, 빌드 작업 | `chore/update-deps` |
-| `docs/` | 문서 작성 및 수정 | `docs/readme-update` |
-| `test/` | 테스트 코드 작성 | `test/parser-api` |
-
-### Commit Convention
-
-커밋 메시지는 Conventional Commits 형식을 사용합니다.
-
-```text
-type(scope): message
-```
-
-`scope`는 선택 사항이며, 작업 범위를 나타냅니다.
-
-```text
-feat(parser): add document convert API
-fix(queue): resolve job status update bug
-docs(readme): update installation guide
-refactor(api): separate parser router logic
-test(frontend): add file uploader test
-```
-
-| 타입 | 설명 |
-| --- | --- |
-| `feat` | 새로운 기능 추가 |
-| `fix` | 버그 수정 |
-| `docs` | 문서 수정 |
-| `style` | 코드 포맷팅, UI 스타일 수정 |
-| `refactor` | 기능 변경 없는 코드 구조 개선 |
-| `test` | 테스트 코드 추가 및 수정 |
-| `chore` | 빌드, 패키지, 설정 등 기타 작업 |
-| `init` | 프로젝트 초기 설정 |
-| `update` | 기존 기능 보완 |
-| `remove` | 파일 또는 코드 삭제 |
-| `move` | 파일 또는 코드 이동 |
-| `rename` | 파일 또는 폴더 이름 변경 |
-| `comment` | 주석 추가 또는 수정 |
-| `upload` | 이미지, 문서 등 파일 업로드 |
-
-### Pull Request Rule
-
-| 항목 | 규칙 |
-| --- | --- |
-| PR 대상 | 기능 브랜치에서 `develop`으로 PR 생성 |
-| PR 내용 | 변경 내용, 테스트 여부, 참고 사항 작성 |
-| Review | 팀원 1인 이상 확인 후 머지 |
-| CI | 가능하면 lint, test, build 통과 후 머지 |
-| Conflict | 충돌 해결 후 다시 확인 |
-| Merge 기준 | 기능 동작 확인 및 코드 품질 확인 후 머지 |
-
-### Issue Management
-
-GitHub Issue, Milestone, Label을 활용하여 작업을 관리했습니다.
-
-| 항목 | 설명 |
-| --- | --- |
-| Issue | 기능 구현, 버그 수정, 문서 작업 등 작업 단위 관리 |
-| Milestone | 주차별 목표 및 발표/제출 일정 관리 |
-| Label | `frontend`, `backend`, `ai`, `docs`, `bug`, `enhancement` 등으로 작업 분류 |
-| Issue Template | 작업 목적, 구현 내용, 체크리스트를 명확히 기록 |
-
-### Code Quality
-
-| 항목 | 사용 도구 |
-| --- | --- |
-| Frontend Formatting | Prettier |
-| Frontend Lint | ESLint |
-| Frontend Unit Test | Vitest |
-| Frontend E2E Test | Playwright |
-| Backend Test | pytest |
-| API 문서 | FastAPI Swagger |
-| 배포 환경 | Docker, Docker Compose |
-
-### 협업 원칙
-
-| 원칙 | 설명 |
-| --- | --- |
-| 역할 분리 | 프론트엔드, 백엔드, AI/문서 처리 작업 범위를 분리 |
-| API 우선 협업 | 요청/응답 구조를 기준으로 프론트와 백엔드 병렬 개발 |
-| 작은 단위 작업 | 기능을 작은 Issue와 PR 단위로 나누어 관리 |
-| 문서화 | 설치 방법, API, 사용법, 시행착오를 README와 docs에 기록 |
-| 리뷰 기반 통합 | PR 단위로 변경 내용을 확인한 뒤 `develop`에 통합 |
-| 안정성 우선 | 기능 추가뿐 아니라 병목, 오류, 배포 가능성을 함께 검토 |
-
-## 상세 문서
-
-- [Backend README](./backend/README.md)
-- [Frontend README](./frontend/README.md)
-- [Backend Install Guide](./backend/docs/INSTALL.md)
-- [Qwen Local Server](./backend/docs/QWEN_LOCAL_SERVER.md)
-- [Worker Routing](./backend/docs/WORKER_ROUTING.md)
-- [OpenAI Multi Worker](./backend/docs/OPENAI_MULTI_WORKER.md)
-- [Service 운영 문서](./backend/docs/README_SERVICE.md)
-- [Submission Readiness](./backend/docs/SUBMISSION_READINESS.md)
-- [Frontend Project Guide](./frontend/docs/project-guide.md)
-- [Frontend Testing Guide](./frontend/docs/testing-guide.md)
-- [Frontend Libraries](./frontend/docs/libraries.md)
-
-<br />
-
-## GitHub Pages
-
-팀 페이지는 GitHub Pages를 통해 확인할 수 있습니다.
-
-[https://kookmin-sw.github.io/2026-capstone-23/](https://kookmin-sw.github.io/2026-capstone-23/)
-
-<br />
-
-## 기타
-
-본 프로젝트는 **Kookmin University College of Software Convergence 2026 Capstone Design** 산학협력 프로젝트로 진행되었습니다.
-
-산학협력 프로젝트 협력: **르몽**
+기대하는 고객 가치는 문서 검색 시간 단축, 업무 효율 향상, 보안 환경에서의 AI 활용입니다.

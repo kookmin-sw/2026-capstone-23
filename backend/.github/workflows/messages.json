@@ -1,0 +1,14 @@
+{
+  "korean": {
+    "PR_OPENED": "🟢 PR 열림: {title}\n작성자: {user}\n{url}",
+    "PR_SYNCHRONIZE": "🔵 PR 업데이트: {title}\n작성자: {user}\n{url}",
+    "PR_REOPENED": "🟡 PR 재오픈: {title}\n작성자: {user}\n{url}",
+    "PR_CLOSED": "⚫ PR 닫힘: {title}\n작성자: {user}\n{url}",
+    "PR_MERGED": "🟣 PR 머지: {title}\n작성자: {user}\n{url}",
+
+    "BRANCH_CREATE": "🌿 브랜치 생성: {title}\nby {user}\n{url}",
+    "BRANCH_DELETE": "🗑️ 브랜치 삭제: {title}\nby {user}\n{url}",
+
+    "PUSH": "📌 푸시 [{branch}]: {title}\nby {user}\n{url}"
+  }
+}

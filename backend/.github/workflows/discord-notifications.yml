@@ -1,0 +1,123 @@
+name: Discord Notifications
+
+on:
+  push:
+    branches: ["**"]
+  pull_request:
+    types: [opened, closed, reopened]
+  issues:
+    types: [opened, closed]
+
+jobs:
+  notify:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Send Discord Notification
+        env:
+          WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
+        run: |
+          set -euo pipefail
+
+          if [ -z "${WEBHOOK_URL}" ]; then
+            echo "DISCORD_WEBHOOK_URL secret is missing"
+            exit 1
+          fi
+
+          EVENT="${{ github.event_name }}"
+          REPO="${{ github.repository }}"
+          ACTOR="${{ github.actor }}"
+
+          if [ "$EVENT" = "push" ]; then
+            BRANCH="${GITHUB_REF_NAME:-${{ github.ref }}}"
+            COMMIT_MSG="${{ github.event.head_commit.message }}"
+            COMMIT_TITLE="$(printf "%s" "$COMMIT_MSG" | head -n 1)"
+            COMMIT_URL="https://github.com/${REPO}/commit/${GITHUB_SHA}"
+
+            PAYLOAD=$(jq -n \
+              --arg title "🚀 새로운 코드가 푸시되었습니다!" \
+              --arg url "$COMMIT_URL" \
+              --arg repo "$REPO" \
+              --arg branch "$BRANCH" \
+              --arg actor "$ACTOR" \
+              --arg msg "$COMMIT_TITLE" \
+              '{
+                embeds: [{
+                  title: $title,
+                  url: $url,
+                  color: 9288656,
+                  fields: [
+                    {name:"레포지토리", value:$repo, inline:false},
+                    {name:"브랜치", value:$branch, inline:false},
+                    {name:"푸시한 사람", value:$actor, inline:false},
+                    {name:"커밋 메시지", value:$msg, inline:false}
+                  ]
+                }]
+              }')
+
+          elif [ "$EVENT" = "pull_request" ]; then
+            PR_TITLE="${{ github.event.pull_request.title }}"
+            PR_URL="${{ github.event.pull_request.html_url }}"
+            ACTION="${{ github.event.action }}"
+            BASE="${{ github.event.pull_request.base.ref }}"
+            HEAD="${{ github.event.pull_request.head.ref }}"
+
+            PAYLOAD=$(jq -n \
+              --arg title "📌 Pull Request 이벤트 발생" \
+              --arg url "$PR_URL" \
+              --arg prtitle "$PR_TITLE" \
+              --arg actor "$ACTOR" \
+              --arg action "$ACTION" \
+              --arg branch "${BASE} ← ${HEAD}" \
+              '{
+                embeds: [{
+                  title: $title,
+                  url: $url,
+                  color: 16249548,
+                  fields: [
+                    {name:"제목", value:$prtitle, inline:false},
+                    {name:"작성자", value:$actor, inline:false},
+                    {name:"상태", value:$action, inline:false},
+                    {name:"브랜치", value:$branch, inline:false}
+                  ]
+                }]
+              }')
+
+          elif [ "$EVENT" = "issues" ]; then
+            ISSUE_TITLE="${{ github.event.issue.title }}"
+            ISSUE_URL="${{ github.event.issue.html_url }}"
+            ACTION="${{ github.event.action }}"
+
+            PAYLOAD=$(jq -n \
+              --arg title "🐛 Issue 이벤트 발생" \
+              --arg url "$ISSUE_URL" \
+              --arg ititle "$ISSUE_TITLE" \
+              --arg actor "$ACTOR" \
+              --arg action "$ACTION" \
+              '{
+                embeds: [{
+                  title: $title,
+                  url: $url,
+                  color: 11055162,
+                  fields: [
+                    {name:"제목", value:$ititle, inline:false},
+                    {name:"작성자", value:$actor, inline:false},
+                    {name:"상태", value:$action, inline:false}
+                  ]
+                }]
+              }')
+          else
+            echo "Unsupported event: $EVENT"
+            exit 0
+          fi
+
+          HTTP_CODE=$(curl -s -o /tmp/discord_resp.txt -w "%{http_code}" \
+            -H "Content-Type: application/json" \
+            -d "$PAYLOAD" \
+            "$WEBHOOK_URL")
+
+          echo "Discord HTTP: $HTTP_CODE"
+          if [ "$HTTP_CODE" != "204" ] && [ "$HTTP_CODE" != "200" ]; then
+            echo "Discord response:"
+            cat /tmp/discord_resp.txt
+            exit 1
+          fi

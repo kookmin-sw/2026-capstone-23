@@ -1,0 +1,9 @@
+APP_NAME = "luminir-dp"
+APP_TITLE = "Luminir VLM API"
+APP_VERSION = "0.2.0"
+
+API_VERSION = "v1"
+API_PREFIX = f"/{API_VERSION}"
+PUBLIC_API_PREFIX = f"/api/{API_VERSION}"
+
+ADMIN_TITLE = "Luminir Admin"

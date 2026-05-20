@@ -1,0 +1,8 @@
+{
+  "file": "table_complex15.png",
+  "text": "경비원 직렬 근무유형표 구분 직렬 근무유형 근무형태 공무직 경비원 가 삭제 24시간2교대 근무 나 야간교대 근무 3조2교대 근무(A형) 다 3조2교대 근무(B형) 통상근무(주40시간)",
+  "tables": [
+    "<table><tr><th>구분</th><th>직렬</th><th>근무유형</th><th>근무형태</th></tr><tr><td rowspan=\"3\">공무직</td><td rowspan=\"3\">경비원</td><td>가</td><td>삭 제<br>24시간2교대 근무</td></tr><tr><td>나</td><td>야간교대 근무(18시~익일 9시)<br>3조2교대 근무(A형)</td></tr><tr><td>다</td><td>3조2교대 근무(B형)<br>통상근무(주40시간)</td></tr></table>"
+  ],
+  "has_multipage_table": false
+}

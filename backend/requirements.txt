@@ -1,0 +1,90 @@
+# Core runtime
+fastapi==0.128.8
+starlette-admin==0.16.0
+uvicorn==0.39.0
+starlette==0.49.3
+pydantic==2.12.5
+pydantic_core==2.41.5
+typing_extensions==4.15.0
+anyio==4.13.0
+sniffio==1.3.1
+itsdangerous==2.2.0
+
+# HTTP / networking
+httpx==0.28.1
+httpcore==1.0.9
+httptools==0.7.1
+websockets==15.0.1
+requests==2.33.1
+urllib3==2.7.0
+
+# Data processing
+numpy==2.4.4
+pandas==2.3.3
+python-dateutil==2.9.0.post0
+pytz==2026.1.post1
+tzdata==2026.1
+
+# File / document processing
+PyMuPDF==1.27.2.2
+pypdf==6.10.2
+pdf2image==1.17.0
+python-magic==0.4.27
+filetype==1.2.0
+pyhwp==0.1b15
+openpyxl==3.1.5
+xlrd==2.0.2
+
+# HTML parsing
+beautifulsoup4==4.14.3
+lxml==6.1.0
+html5lib==1.1
+defusedxml==0.7.1
+
+# Image / media
+pillow==12.2.0
+opencv-python-headless==4.13.0.92
+pydub==0.25.1
+ffmpy==1.0.0
+av==17.0.0
+
+# PDF rendering
+reportlab==4.4.10
+svglib==1.6.0
+weasyprint==68.1
+xhtml2pdf==0.2.17
+
+# Text / NLP
+regex==2026.4.4
+
+# OpenAI / LLM
+openai==2.30.0
+
+# Queue / cache clients
+redis==7.4.0
+pika==1.3.2
+
+# Database
+SQLAlchemy==2.0.49
+cryptography==46.0.7
+
+# Configuration / tooling
+python-dotenv==1.2.2
+python-multipart==0.0.27
+psutil==7.2.2
+tqdm==4.67.3
+rich==14.3.3
+click==8.3.2
+packaging==26.0
+setuptools==81.0.0
+wheel==0.46.3
+
+# JSON
+orjson==3.11.8
+
+# Misc
+PyYAML==6.0.3
+six==1.17.0
+
+# Torch / GPU runtime
+# PyTorch runtime versions are pinned in requirements-torch.txt.

@@ -1,0 +1,8 @@
+{
+  "file": "table_complex20.png",
+  "text": "공공재정지급금의 명칭 지급근거 법률 및 자치법규 공공재정지급금 지급일 20 . . 공공재정지급금액 원 처분 대상자(부정수익자) 부정청구 유형 □ 허위청구 □ 과다청구 □ 목적외사용 □ 오지급 부정청구등 발생일 부정이익 가액 원 처분 사유 (부정청구 요지) 처분 우선적용 법률 □ 지급 중단 □ 환수 □ 제재부가금 □ 가산금 및 체납처분 □ 명단 공표",
+  "tables": [
+    "<table><tr><td>공공재정지급금의 명칭</td><td colspan=\"4\"></td></tr><tr><td>지급근거 법률 및 자치법규</td><td colspan=\"4\"></td></tr><tr><td>공공재정지급금 지급일</td><td>20  .  .</td><td>공공재정지급금액</td><td colspan=\"2\">원</td></tr><tr><td>처분 대상자(부정수익자)</td><td colspan=\"4\"></td></tr><tr><td>부정청구 유형</td><td>□ 허위청구</td><td>□ 과다청구</td><td>□ 목적외사용</td><td>□ 오지급</td></tr><tr><td>부정청구등 발생일</td><td></td><td>부정이익 가액</td><td colspan=\"2\">원</td></tr><tr><td>처분 사유<br>(부정청구 요지)</td><td colspan=\"4\"></td></tr><tr><td rowspan=\"2\">처분 우선적용 법률</td><td colspan=\"4\">□ 지급 중단  □ 환수  □ 제재부가금  □ 가산금 및 체납처분  □ 명단 공표</td></tr><tr><td colspan=\"4\"></td></tr></table>"
+  ],
+  "has_multipage_table": false
+}

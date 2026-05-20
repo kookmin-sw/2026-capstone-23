@@ -1,0 +1,141 @@
+name: ${COMPOSE_PROJECT_NAME:-luminir}
+
+x-backend-env: &backend-env
+  OPENAI_MODEL: ${OPENAI_MODEL:-openrouter/openai/gpt-5.2}
+  ENABLE_LOCAL_QWEN_MODEL: ${ENABLE_LOCAL_QWEN_MODEL:-0}
+  QUEUE_BACKEND: rabbitmq
+  QUEUE_MEMORY_FALLBACK_ENABLED: "0"
+  STORE_BACKEND: sqlite
+  STATUS_CACHE_BACKEND: redis
+  REDIS_URL: redis://redis:6379/0
+  REDIS_STORE_PREFIX: ${REDIS_STORE_PREFIX:-jobs:store}
+  REDIS_STATUS_PREFIX: ${REDIS_STATUS_PREFIX:-jobs:status}
+  STATUS_CACHE_NAMESPACES: ${STATUS_CACHE_NAMESPACES:-jobs,job_items,job_events,documents,document_cache,worker_leases}
+  RABBITMQ_URL: "amqp://${RABBITMQ_USER:-luminir}:${RABBITMQ_PASSWORD:-luminir-local-password}@rabbitmq:5672/%2F"
+  RABBITMQ_QUEUE: ${RABBITMQ_QUEUE:-jobs.queue}
+  DEFAULT_AUTO_EXECUTION_BACKEND: ${DEFAULT_AUTO_EXECUTION_BACKEND:-openrouter}
+  ENABLE_INLINE_EXEC_WORKER: "0"
+  ENABLE_INLINE_RECOVERY_WORKER: "0"
+  INPUT_ROOT: /app/data/inputs
+  OUTPUT_ROOT: /app/data/outputs
+  TMP_ROOT: /app/data/tmp
+  WORKER_MAX_CONCURRENCY: ${WORKER_MAX_CONCURRENCY:-1}
+  WORKER_MISSING_STATE_MAX_RETRIES: ${WORKER_MISSING_STATE_MAX_RETRIES:-5}
+  JOB_EVENTS_CLEANUP_INTERVAL_SECONDS: ${JOB_EVENTS_CLEANUP_INTERVAL_SECONDS:-60}
+  JOB_ITEM_TIMEOUT_SECONDS: ${JOB_ITEM_TIMEOUT_SECONDS:-3600}
+
+x-backend-common: &backend-common
+  build:
+    context: .
+    dockerfile: Dockerfile
+    args:
+      PYTORCH_INDEX_URL: ${PYTORCH_INDEX_URL:-https://download.pytorch.org/whl/cu126}
+      INSTALL_TORCH: ${INSTALL_TORCH:-0}
+      INSTALL_OFFICE_TOOLS: ${INSTALL_OFFICE_TOOLS:-1}
+  image: luminir-backend:local
+  restart: unless-stopped
+  env_file:
+    - ./.env
+  environment: *backend-env
+  volumes:
+    - backend_data:/app/data
+  depends_on:
+    backend-data-init:
+      condition: service_completed_successfully
+    redis:
+      condition: service_healthy
+    rabbitmq:
+      condition: service_healthy
+
+services:
+  backend-data-init:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        PYTORCH_INDEX_URL: ${PYTORCH_INDEX_URL:-https://download.pytorch.org/whl/cu126}
+        INSTALL_TORCH: ${INSTALL_TORCH:-0}
+        INSTALL_OFFICE_TOOLS: ${INSTALL_OFFICE_TOOLS:-1}
+    image: luminir-backend:local
+    user: root
+    restart: "no"
+    command:
+      - /bin/sh
+      - -c
+      - mkdir -p /app/data/inputs /app/data/outputs /app/data/tmp && chown -R app:app /app/data
+    volumes:
+      - backend_data:/app/data
+
+  backend:
+    <<: *backend-common
+    command: ["uvicorn", "api:app", "--host", "0.0.0.0", "--port", "8000", "--ws", "websockets"]
+    ports:
+      - "${BACKEND_PORT:-8000}:8000"
+    healthcheck:
+      test:
+        - CMD
+        - python
+        - -c
+        - "import json,sys,urllib.request; body=json.load(urllib.request.urlopen('http://127.0.0.1:8000/v1/health/ready', timeout=3)); sys.exit(0 if body.get('success') and body.get('data', {}).get('status') == 'ok' else 1)"
+      interval: 30s
+      timeout: 5s
+      start_period: 20s
+      retries: 3
+
+  worker-openai:
+    <<: *backend-common
+    healthcheck:
+      disable: true
+    environment:
+      <<: *backend-env
+      WORKER_MODE: openai
+      WORKER_MAX_CONCURRENCY: ${OPENAI_WORKER_MAX_CONCURRENCY:-3}
+    command:
+      - python
+      - -m
+      - worker.main
+
+  recovery:
+    <<: *backend-common
+    healthcheck:
+      disable: true
+    command:
+      - /bin/sh
+      - -lc
+      - python -c "from core.env import env_str; from worker.recovery import run_recovery_worker; run_recovery_worker(worker_id=env_str('HOSTNAME', 'recovery'))"
+
+  redis:
+    image: redis:7-alpine
+    restart: unless-stopped
+    command: ["redis-server", "--appendonly", "yes"]
+    ports:
+      - "${REDIS_BIND_HOST:-127.0.0.1}:${REDIS_PORT:-6379}:6379"
+    volumes:
+      - redis_data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  rabbitmq:
+    image: rabbitmq:3-management
+    restart: unless-stopped
+    environment:
+      RABBITMQ_DEFAULT_USER: ${RABBITMQ_USER:-luminir}
+      RABBITMQ_DEFAULT_PASS: ${RABBITMQ_PASSWORD:-luminir-local-password}
+    ports:
+      - "${RABBITMQ_BIND_HOST:-127.0.0.1}:${RABBITMQ_PORT:-5672}:5672"
+      - "${RABBITMQ_MANAGEMENT_BIND_HOST:-127.0.0.1}:${RABBITMQ_MANAGEMENT_PORT:-15672}:15672"
+    volumes:
+      - rabbitmq_data:/var/lib/rabbitmq
+    healthcheck:
+      test: ["CMD", "rabbitmq-diagnostics", "-q", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+
+volumes:
+  backend_data:
+  redis_data:
+  rabbitmq_data:
