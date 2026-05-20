@@ -1,13 +1,6 @@
-<svg width="1600" height="300" viewBox="0 0 1600 300" fill="none" xmlns="http://www.w3.org/2000/svg">
+<svg width="1600" height="300" viewBox="0 0 1600 300" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
   <rect width="1600" height="300" fill="#ffffff"/>
-  <g transform="translate(118 68)">
-    <path d="M82 0 154 41.5v83L82 166 10 124.5v-83L82 0Z" fill="#2E6AF5"/>
-    <path d="M82 18.8 137.7 50.9 82 83 26.3 50.9 82 18.8Z" fill="#7EA6FF"/>
-    <path d="M26.3 66.1 70.7 91.7v51.2L26.3 117.3V66.1Z" fill="#1F4FC8"/>
-    <path d="M137.7 66.1 93.3 91.7v51.2l44.4-25.6V66.1Z" fill="#4D82FF"/>
-    <path d="M41.6 58.7 82 82l40.4-23.3 15.3 8.8L82 99.6 26.3 67.5l15.3-8.8Z" fill="#ffffff"/>
-    <path d="M70.7 91.7 82 98.2l11.3-6.5v17.6L82 115.8l-11.3-6.5V91.7Z" fill="#DCE8FF"/>
-  </g>
+  <image x="96" y="45" width="210" height="210" href="icon.svg" xlink:href="icon.svg" preserveAspectRatio="xMidYMid meet"/>
   <g transform="translate(330 75)">
     <text x="0" y="75" fill="#11234A" font-family="Pretendard, Arial, sans-serif" font-size="82" font-weight="900" letter-spacing="1.5">DOC PARSER</text>
     <text x="2" y="136" fill="#51658F" font-family="Pretendard, Arial, sans-serif" font-size="38" font-weight="700">문서의 가치를 구조화하다</text>
