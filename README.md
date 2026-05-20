@@ -22,6 +22,12 @@
 
 <br />
 
+## 프로젝트 페이지
+
+[LLMong GitHub Pages 바로가기](https://kookmin-sw.github.io/2026-capstone-23/)
+
+<br />
+
 ## 목차
 
 1. [프로젝트 소개](#프로젝트-소개)
@@ -249,7 +255,7 @@ POST   /rag/sessions/{sessionId}/messages
 
 ## 연구 성과
 
-LLMong 프로젝트의 문서 파싱 및 RAG 기반 문서 질의응답 구조를 정리한 논문을 **KICS(한국통신학회)**에 투고했습니다.
+LLMong 프로젝트의 문서 파싱 및 RAG 기반 문서 질의응답 구조를 정리한 논문을 <strong>KICS(한국통신학회)</strong>에 투고
 
 <p align="center">
   <img width="410" height="250" alt="KICS 논문 투고 자료 1" src="./assets/images/paper1.svg" />
@@ -264,7 +270,7 @@ LLMong 프로젝트의 문서 파싱 및 RAG 기반 문서 질의응답 구조�
 
 <p align="center">
   <a href="https://www.youtube.com/watch?v=txJgsCJVvJk">
-    <img width="780" alt="LLMong 시연 영상" src="https://img.youtube.com/vi/txJgsCJVvJk/hqdefault.jpg" />
+    <img width="780" alt="LLMong 시연 영상" src="https://img.youtube.com/vi/txJgsCJVvJk/maxresdefault.jpg" />
   </a>
 </p>
 

@@ -777,14 +777,14 @@ hr {
 
   .mobile-nav-toggle::before {
     content: "\2630";
-    display: block;
+    display: none;
     font-weight: 800;
   }
 
   .mobile-nav-toggle span {
     width: 28px;
     height: 3px;
-    display: none;
+    display: block;
     border-radius: 999px;
     background: currentColor;
     transition: opacity 160ms ease, transform 160ms ease;
@@ -792,6 +792,7 @@ hr {
 
   .site-sidebar.is-open .mobile-nav-toggle::before {
     content: "\00d7";
+    display: none;
     font-size: 44px;
     font-weight: 300;
   }
@@ -920,7 +921,7 @@ hr {
   .mobile-nav-toggle {
     top: 12px;
     right: auto;
-    left: min(326px, calc(100vw - 58px));
+    left: min(346px, calc(100vw - 58px));
     width: 42px;
     height: 42px;
   }
@@ -1153,7 +1154,7 @@ hr {
   .mobile-nav-toggle {
     width: 40px;
     height: 40px;
-    left: min(330px, calc(100vw - 54px));
+    left: min(342px, calc(100vw - 54px));
   }
 
   .mobile-nav-toggle span {
@@ -1251,7 +1252,7 @@ hr {
   }
 
   .mobile-nav-toggle {
-    left: min(304px, calc(100vw - 52px));
+    left: min(314px, calc(100vw - 52px));
   }
 
   .page-shell {
