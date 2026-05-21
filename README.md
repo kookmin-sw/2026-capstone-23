@@ -264,8 +264,8 @@ POST   /rag/sessions/{sessionId}/messages
 LLMong 프로젝트의 문서 파싱 및 RAG 기반 문서 질의응답 구조를 정리한 논문을 <strong>KICS(한국통신학회)</strong>에 투고
 
 <p align="center">
-  <img width="410" height="250" alt="KICS 논문 투고 자료 1" src="./assets/images/paper1.svg" />
-  <img width="410" height="250" alt="KICS 논문 투고 자료 2" src="./assets/images/paper2.svg" />
+  <img width="1068" height="630" alt="Image" src="https://github.com/user-attachments/assets/5340283e-645c-4405-b0fb-2d4dd0cb27f5" />
+  <img width="1068" height="630" alt="Image" src="https://github.com/user-attachments/assets/bfc415eb-0814-444f-ae7a-d336d1bdc4fc" />
 </p>
 
 <br />
