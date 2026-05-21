@@ -387,71 +387,116 @@ processing
 현재 공개 레포지토리 기준 구조입니다.
 
 ```text
-2026-capstone-23/
-  README.md
-  index.html
-  _config.yml
-
-  assets/
-    css/
-      member-cards.css
-    images/
-      architecture-dark.svg
-      architecture.svg
-      banner.svg
-      convert.svg
-      convertdoc.svg
-      dashboard.svg
-      dashboarddoc.svg
-      logo-dark.svg
-      logo.svg
-      model.svg
-      pipeline.svg
-      poster.svg
-      rag.svg
-      rag2.svg
-      readme-banner.gif
-      service1.svg
-      service2.svg
-      service3.svg
-      show.svg
-
-  backend/
-    Dockerfile
-    docker-compose.yml
-    docker-compose.onprem.yml
-    requirements.txt
-    requirements-dev.txt
-    requirements-torch.txt
-    requirements-qwen.txt
-    api/
-    core/
-    db/
-    docs/
-    infra/
-    models/
-    storage/
-    tests/
-    worker/
-
-  frontend/
-    Dockerfile
-    nginx.conf
-    package.json
-    package-lock.json
-    vite.config.ts
-    tsconfig.json
-    playwright.config.ts
-    docs/
-    e2e/
-    src/
-      app/
-      entities/
-      features/
-      pages/
-      routes/
-      shared/
-      widgets/
+📦 2026-capstone-23
+│
+├── 📄 README.md                         # 프로젝트 전체 설명서
+├── 📄 index.html                        # GitHub Pages 소개 페이지
+├── 📄 _config.yml                       # GitHub Pages 설정
+├── 📄 .nojekyll                         # GitHub Pages Jekyll 비활성화
+│
+├── 📁 assets                            # README 및 GitHub Pages 정적 자산
+│   ├── 📁 css
+│   │   └── member-cards.css             # 소개 페이지 스타일
+│   │
+│   ├── 📁 images                        # 로고, 포스터, 아키텍처, 논문 이미지
+│   │   ├── icon.svg / logo.svg / logo-dark.svg
+│   │   ├── banner.svg / poster.svg
+│   │   ├── architecture.svg / architecture-dark.svg
+│   │   ├── pipeline.svg / model.svg
+│   │   ├── rag.svg / rag2.svg
+│   │   ├── paper1.svg / paper2.svg
+│   │   └── service1.svg / service2.svg / service3.svg
+│   │
+│   ├── LLMong 기말발표.pdf              # 최종 발표 자료
+│   └── 결과보고서-LLMong.pdf            # 결과 보고서
+│
+├── 📁 frontend                          # 프론트엔드 (React + Vite + TypeScript)
+│   ├── 📁 public                        # 정적 파일
+│   ├── 📁 docs                          # 프론트엔드 문서
+│   ├── 📁 e2e                           # Playwright E2E 테스트
+│   ├── 📁 .storybook                    # Storybook 설정
+│   │
+│   ├── 📁 src
+│   │   ├── 📁 app                       # 앱 초기화, provider, 전역 스타일, store
+│   │   ├── 📁 pages                     # 라우트 단위 페이지
+│   │   ├── 📁 widgets                   # 대시보드, 결과 패널 등 큰 UI 블록
+│   │   ├── 📁 features                  # 파일 업로드, 설정, 사용자 액션 단위 기능
+│   │   ├── 📁 entities                  # document, rag, parser 등 도메인 모델
+│   │   ├── 📁 routes                    # TanStack Router 라우트 정의
+│   │   ├── 📁 shared                    # 공통 API, UI, 유틸, 타입
+│   │   │   ├── 📁 api                   # parser, rag, documents, health API
+│   │   │   ├── 📁 ui                    # 공통 UI 컴포넌트
+│   │   │   ├── 📁 lib                   # 공통 유틸 함수
+│   │   │   ├── 📁 config                # 모델/환경 설정
+│   │   │   ├── 📁 types                 # 공통 타입
+│   │   │   └── 📁 test                  # 테스트 setup
+│   │   │
+│   │   ├── main.tsx                     # React 진입점
+│   │   └── routeTree.gen.ts             # 라우트 트리 생성 파일
+│   │
+│   ├── Dockerfile                       # 프론트엔드 Docker 빌드
+│   ├── nginx.conf                       # 정적 배포용 Nginx 설정
+│   ├── package.json
+│   ├── package-lock.json
+│   ├── vite.config.ts
+│   ├── tsconfig.json
+│   └── playwright.config.ts
+│
+├── 📁 backend                           # 백엔드 (FastAPI + Worker)
+│   ├── 📁 api                           # HTTP/WebSocket API 계층
+│   │   ├── 📁 routers                   # REST API 라우터
+│   │   │   ├── parser.py
+│   │   │   ├── parser_jobs.py
+│   │   │   ├── parser_documents.py
+│   │   │   ├── documents.py
+│   │   │   ├── rag.py
+│   │   │   ├── models.py
+│   │   │   ├── monitoring.py
+│   │   │   └── health.py
+│   │   ├── 📁 schemas                   # API 요청/응답 스키마
+│   │   ├── 📁 services                  # API 서비스 로직
+│   │   ├── 📁 admin_ui                  # 관리자 UI
+│   │   ├── dependencies.py              # FastAPI 의존성
+│   │   ├── security.py                  # 인증/보안 처리
+│   │   └── ws_hub.py                    # WebSocket 이벤트 허브
+│   │
+│   ├── 📁 core                          # 문서 처리 핵심 도메인
+│   │
+│   ├── 📁 worker                        # 비동기 작업 실행 워커
+│   │   ├── main.py                      # 워커 진입점
+│   │   ├── qwen_doc_worker.py           # 문서 전처리 워커
+│   │   ├── qwen_infer_worker.py         # VLM 추론 워커
+│   │   ├── qwen_finalize_worker.py      # 결과 병합/정리 워커
+│   │   ├── message_retry.py             # 메시지 재시도
+│   │   ├── lease_heartbeat.py           # 작업 lease heartbeat
+│   │   └── recovery.py                  # 실패 복구
+│   │
+│   ├── 📁 infra                         # 큐, 저장소, 이벤트 인프라
+│   │   ├── 📁 queue                     # RabbitMQ / memory queue 구현
+│   │   ├── 📁 storage                   # 파일 저장소 설정
+│   │   ├── progress_events.py           # 진행률 이벤트
+│   │   └── store.py                     # 저장소 추상화
+│   │
+│   ├── 📁 db                            # DB 세션, 모델, 마이그레이션, seed
+│   │   ├── 📁 models                    # parser/store/common DB 모델
+│   │   ├── session.py
+│   │   ├── migrations.py
+│   │   └── seed.py
+│   │
+│   ├── 📁 tests                         # 백엔드 테스트
+│   ├── 📁 eval                          # 평가 스크립트
+│   ├── 📁 scripts                       # 운영/유틸 스크립트
+│   ├── 📁 storage                       # 로컬 파일 저장 경로
+│   ├── 📁 models                        # 로컬 모델 디렉터리
+│   │
+│   ├── Dockerfile
+│   ├── docker-compose.yml               # 기본 로컬 실행 구성
+│   ├── docker-compose.onprem.yml        # 온프레미스 실행 구성
+│   ├── requirements.txt
+│   ├── requirements-dev.txt
+│   ├── requirements-torch.txt
+│   ├── requirements-qwen.txt
+│   └── pyproject.toml
 ```
 
 ### Frontend Architecture
