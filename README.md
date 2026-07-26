@@ -130,13 +130,13 @@ RAG 검색 및 질의응답
       <a href="https://github.com/jun-kookmin">GitHub</a>
     </td>
     <td align="center" width="180px">
-      <img src="https://github.com/seunG-Zzun.png" width="120px" height="120px" alt="하승준" />
+      <img src="https://github.com/seungzun.png" width="120px" height="120px" alt="하승준" />
       <br />
       <strong>하승준</strong>
       <br />
       Backend & AI
       <br />
-      <a href="https://github.com/seunG-Zzun">GitHub</a>
+      <a href="https://github.com/seungzun">GitHub</a>
     </td>
   </tr>
 </table>
